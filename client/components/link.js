@@ -10,7 +10,7 @@ class PlaidLogin extends Component {
       transactions: []
     }
 
-    this.handleClick = this.handleClick.bind(this)
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   handleOnSuccess(public_token, metadata) {
@@ -25,50 +25,45 @@ class PlaidLogin extends Component {
     // For the sake of this tutorial, we're not going to be doing anything here.
   }
 
-  async handleClick(res) {
+  async componentDidMount(res) {
     await axios.get('/transactions').then(res => {
       this.setState({transactions: [res.data]})
     })
   }
 
+  // async handleClick(res) {
+  //   await axios.get('/transactions').then(res => {
+  //     this.setState({transactions: [res.data]})
+  //   })
+  // }
+
   render() {
     // console.log(this.transactions.transactions.transactions)
-    return (
-      <div>
-        <PlaidLink
-          clientName="React Plaid Setup"
-          env="sandbox"
-          product={['auth', 'transactions']}
-          publicKey="ae9b699cddb974bc89c10074b92e85"
-          onExit={this.handleOnExit}
-          onSuccess={this.handleOnSuccess}
-          className="test"
-        >
-          Open Link and connect your bank!
-        </PlaidLink>
+    if (!this.state.transactions.length) {
+      return (
         <div>
-          <button onClick={this.handleClick}>Get Transactions</button>
+          <PlaidLink
+            clientName="React Plaid Setup"
+            env="sandbox"
+            product={['auth', 'transactions']}
+            publicKey="ae9b699cddb974bc89c10074b92e85"
+            onExit={this.handleOnExit}
+            onSuccess={this.handleOnSuccess}
+            className="test"
+          >
+            Open Link and connect your bank!
+          </PlaidLink>
         </div>
-        {/* <AccountOverview transactions={this.state.transactions} onClick={this.handleClick} /> */}
+      )
+    } else {
+      return (
         <div>
-          {!this.state.transactions.length ? (
-            <h1>Click Get Transactions</h1>
-          ) : (
-            <h1>
-              Latest Transaction:{' '}
-              {
-                this.state.transactions[0].transactions.transactions[0]
-                  .merchant_name
-              }{' '}
-              $
-              {this.state.transactions[0].transactions.transactions[0].amount}
-            </h1>
-          )}
-
-          <div />
+          {/* <button type="submit" onClick={this.handleClick}>Get Transactions</button> */}
+          {/* <AccountOverview transactions={this.state.transactions} onClick={this.handleClick} /> */}
+          <AccountOverview transactions={this.state.transactions} />
         </div>
-      </div>
-    )
+      )
+    }
   }
 }
 
