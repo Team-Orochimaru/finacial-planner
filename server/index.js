@@ -28,6 +28,11 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
+const {
+  receivePublicToken,
+  getTransactions
+} = require('./controllers/controller')
+
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 
@@ -48,6 +53,10 @@ const createApp = () => {
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
 
+  // Get the public token and exchange it for an access token
+  app.post('/auth/public_token', receivePublicToken)
+  // Get Transactions
+  app.get('/transactions', getTransactions)
   // compression middleware
   app.use(compression())
 
