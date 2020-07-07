@@ -6,7 +6,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 // import AccountOverview from './components/account-overview'
 import PlaidLogin from './components/link'
-import AccountOverview from 'account-overview'
+// import AccountOverview from './components/account-overview'
 /**
  * COMPONENT
  */
@@ -27,11 +27,12 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         {/* <Route component={Login} /> */}
         <Route component={PlaidLogin} />
-        <Route path="/overview" component={AccountOverview} />
+        {/* <Route path="/overview" component={AccountOverview} /> */}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            {/* <Route path="/overview" component={AccountOverview} /> */}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

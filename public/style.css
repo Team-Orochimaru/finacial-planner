@@ -59,3 +59,15 @@ button a {
   text-decoration: none;
   color: #fff;
 }
+.plaidLink {
+  color: black;
+}
+
+.accountOverViewContainer {
+  padding: 20px;
+}
+.accountTransationContainer {
+  background-color: #999;
+  margin-top: 5px;
+  padding: 5px;
+}
