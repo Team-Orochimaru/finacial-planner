@@ -1,7 +1,7 @@
 var plaid = require('plaid')
 var moment = require('moment')
 
-var PLAID_CLIENT_ID = '5efb9f1c11b5dd0012208f76'
+var PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET = process.env.PLAID_SECRET
 var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
 var PLAID_ENV = 'sandbox'
