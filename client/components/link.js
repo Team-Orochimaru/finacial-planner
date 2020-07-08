@@ -7,17 +7,26 @@ class PlaidLogin extends Component {
     super()
 
     this.state = {
-      transactions: []
+      response: null,
+      transactions: [],
+      test: false
     }
 
-    // this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+    this.handleOnSuccess = this.handleOnSuccess.bind(this)
   }
 
   handleOnSuccess(public_token, metadata) {
     // send token to client server
-    axios.post('/auth/public_token', {
-      public_token: public_token
-    })
+    axios
+      .post('/auth/public_token', {
+        public_token: public_token
+      })
+      .then(() => {
+        this.setState({test: true})
+      })
+    // await this.setState({test: true})
+    // console.log(this.state.test)
   }
 
   handleOnExit() {
@@ -25,21 +34,22 @@ class PlaidLogin extends Component {
     // For the sake of this tutorial, we're not going to be doing anything here.
   }
 
-  async componentDidMount(res) {
-    await axios.get('/transactions').then(res => {
-      this.setState({transactions: [res.data]})
-    })
-  }
-
-  // async handleClick(res) {
-  //   await axios.get('/transactions').then(res => {
+  // async componentDidMount(res) {
+  //   await axios.get('/transactions').then((res) => {
   //     this.setState({transactions: [res.data]})
   //   })
   // }
 
+  handleClick(res) {
+    axios.get('/transactions').then(res => {
+      // console.log(res)
+      this.setState({transactions: [res.data.transactions], response: res})
+    })
+  }
+
   render() {
     // console.log(this.transactions.transactions.transactions)
-    if (!this.state.transactions.length) {
+    if (this.state.test === false) {
       return (
         <div>
           <PlaidLink
@@ -49,18 +59,32 @@ class PlaidLogin extends Component {
             publicKey="ae9b699cddb974bc89c10074b92e85"
             onExit={this.handleOnExit}
             onSuccess={this.handleOnSuccess}
-            className="test"
+            className="plaidLink"
+            // onClick={this.handleClick}
           >
             Open Link and connect your bank!
           </PlaidLink>
+
+          {/* <button type="submit" onClick={this.handleClick}>
+            Get Transactions
+          </button> */}
         </div>
       )
-    } else {
+    } else if (!this.state.transactions.length && this.state.test) {
       return (
         <div>
-          {/* <button type="submit" onClick={this.handleClick}>Get Transactions</button> */}
+          <button type="submit" onClick={this.handleClick}>
+            Get Transactions
+          </button>
           {/* <AccountOverview transactions={this.state.transactions} onClick={this.handleClick} /> */}
-          <AccountOverview transactions={this.state.transactions} />
+          {/* <AccountOverview transactions={this.state.transactions} /> */}
+        </div>
+      )
+    } else if (this.state.transactions.length) {
+      console.log(this.state.response)
+      return (
+        <div>
+          <AccountOverview transactions={this.state.transactions[0]} />
         </div>
       )
     }
