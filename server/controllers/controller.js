@@ -1,5 +1,7 @@
 var plaid = require('plaid')
 var moment = require('moment')
+const User = require('../db/models/user')
+const {object} = require('prop-types')
 
 var PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET = process.env.PLAID_SECRET
@@ -19,23 +21,26 @@ var client = new plaid.Client(
   {version: '2019-05-29', clientApp: 'Plaid Quickstart'}
 )
 
-const receivePublicToken = async (req, res, next) => {
+const receivePublicToken = async (publicToken, userId) => {
   // First, receive the public token and set it to a variable
   try {
-    let PUBLIC_TOKEN = await req.body.public_token
     // Second, exchange the public token for an access token
-    client.exchangePublicToken(PUBLIC_TOKEN, function(_error, tokenResponse) {
+    client.exchangePublicToken(publicToken, async function(
+      _error,
+      tokenResponse
+    ) {
       ACCESS_TOKEN = tokenResponse.access_token
-      ITEM_ID = tokenResponse.item_id
-      res.json({
-        access_token: ACCESS_TOKEN,
-        item_id: ITEM_ID
-      })
-      console.log('access token below')
-      console.log(ACCESS_TOKEN)
+      console.log('Private access token:', ACCESS_TOKEN)
+      const currentUser = await User.findByPk(userId)
+      currentUser.update({plaidAccessToken: ACCESS_TOKEN})
+      // ITEM_ID = tokenResponse.item_id
+      // res.json({
+      //   access_token: ACCESS_TOKEN,
+      //   item_id: ITEM_ID
+      // })
     })
   } catch (error) {
-    next(error)
+    console.log(error)
   }
 }
 
@@ -58,7 +63,7 @@ const getTransactions = (req, res) => {
       res.json({transactions: transactionsResponse})
       // TRANSACTIONS LOGGED BELOW!
       // They will show up in the terminal that you are running nodemon in.
-      console.log(transactionsResponse)
+      // console.log(transactionsResponse)
     }
   )
 }

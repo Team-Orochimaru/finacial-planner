@@ -10,6 +10,8 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const user = require('./db/models/user')
+// const {client} = require('./controllers/controller')
 module.exports = app
 
 // This is a global Mocha hook, used for resource cleanup.
@@ -53,10 +55,6 @@ const createApp = () => {
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
 
-  // Get the public token and exchange it for an access token
-  app.post('/auth/public_token', receivePublicToken)
-  // Get Transactions
-  app.get('/transactions', getTransactions)
   // compression middleware
   app.use(compression())
 
@@ -71,6 +69,11 @@ const createApp = () => {
   )
   app.use(passport.initialize())
   app.use(passport.session())
+
+  //====================================================================
+  // Get Transactions
+  app.get('/transactions', getTransactions)
+  //====================================================================
 
   // auth and api routes
   app.use('/auth', require('./auth'))
