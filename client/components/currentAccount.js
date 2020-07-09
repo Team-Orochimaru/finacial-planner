@@ -1,10 +1,10 @@
-const CurrentAccount = transactions => {
-  let currentAccount = {}
-
+const BankAccount = transactions => {
+  // let bankAccount = {id: [{merchant: amount}]}
+  let bankAccount = {}
   for (let i = 0; i < transactions.transactions.length; ++i) {
     let accountTransactions = []
     let currentTransaction = {}
-    if (currentAccount[transactions.transactions[i].account_id]) {
+    if (bankAccount[transactions.transactions[i].account_id]) {
       let merchant = transactions.transactions[i].merchant_name
       if (merchant === null) {
         merchant = 'Unknown merchant'
@@ -17,7 +17,7 @@ const CurrentAccount = transactions => {
 
       accountTransactions.push(currentTransaction)
 
-      currentAccount[transactions.transactions[i].account_id].push(
+      bankAccount[transactions.transactions[i].account_id].push(
         ...accountTransactions
       )
     } else {
@@ -33,11 +33,9 @@ const CurrentAccount = transactions => {
 
       accountTransactions.push(currentTransaction)
 
-      currentAccount[
-        transactions.transactions[i].account_id
-      ] = accountTransactions
+      bankAccount[transactions.transactions[i].account_id] = accountTransactions
     }
   }
-  return currentAccount
+  return bankAccount
 }
-export default CurrentAccount
+export default BankAccount

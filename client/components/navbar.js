@@ -5,30 +5,45 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import Menu from './Menu'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, plaidAccessToken}) => (
   <div>
-    <nav>
-      <h1>eBudget</h1>
-      {/* <img src="../../hamburger-menu.png" /> */}
-      <Menu />
-    </nav>
-    {isLoggedIn ? (
+    {isLoggedIn &&
+      plaidAccessToken && (
+        <div>
+          <nav>
+            <h1>eBudget</h1>
+
+            <Menu />
+          </nav>
+          <Link to="/home">Home</Link>
+          <a href="#" onClick={handleClick}>
+            Logout
+          </a>
+        </div>
+      )}
+    {isLoggedIn &&
+      !plaidAccessToken && (
+        <div>
+          <nav>
+            <h1>eBudget</h1>
+          </nav>
+          <Link to="/home">Home</Link>
+          <a href="#" onClick={handleClick}>
+            Logout
+          </a>
+        </div>
+      )}
+    {!isLoggedIn && (
       <div>
-        {/* The navbar will show these links after you log in */}
-        <Link to="/home">Home</Link>
-        <a href="#" onClick={handleClick}>
-          Logout
-        </a>
-      </div>
-    ) : (
-      <div>
-        {/* The navbar will show these links before you log in */}
-        {/* <button type="submit" className="login">
+        <nav>
+          <h1>eBudget</h1>
+        </nav>
+        <button type="submit" className="login">
           <Link to="/login">Login</Link>
         </button>
         <button type="submit" className="signup">
           <Link to="/signup">Sign Up</Link>
-        </button> */}
+        </button>
       </div>
     )}
   </div>
@@ -39,7 +54,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    plaidAccessToken: state.user.plaidAccessToken
   }
 }
 

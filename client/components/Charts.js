@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Doughnut} from 'react-chartjs-2'
-import CurrentAccount from './currentAccount'
-import {currentTransaction} from './link'
+import {connect} from 'react-redux'
+import BankAccount from './currentAccount'
+import {fetchTransactions} from '../store/transactions'
 
 const data = {
   labels: ['Red', 'Green', 'Yellow'],
@@ -14,22 +15,34 @@ const data = {
   ]
 }
 
-export default class Charts extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      transactions: currentTransaction
-    }
+class Charts extends Component {
+  componentDidMount() {
+    this.props.getTransactions()
   }
 
   render() {
-    console.log('CHARTS: ', this.transactions)
-    // const {transactions} = this.props
-    // data.datasets[0].data = CurrentAccount(transactions)[
-    //   transactions.account.account_id
-    // ]
-    // console.log('>>>>>>>>>>> :', data)
+    let transactions = this.props.transactions
 
+    if (transactions.length) {
+      console.log('CHARTS: ', transactions)
+      data.datasets[0].data = BankAccount(transactions[0])[
+        transactions[0].accounts.account_id
+      ]
+    }
     return <Doughnut data={data} />
   }
 }
+
+const mapState = state => {
+  return {
+    transactions: state.transactions
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    getTransactions: () => dispatch(fetchTransactions())
+  }
+}
+
+export default connect(mapState, mapDispatch)(Charts)
