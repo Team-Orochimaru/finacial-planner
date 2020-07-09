@@ -53,14 +53,14 @@ class PlaidLogin extends Component {
       return (
         <div>
           <PlaidLink
-            clientName="React Plaid Setup"
+            clientName="eBudget"
             env="sandbox"
             product={['auth', 'transactions']}
             publicKey="ae9b699cddb974bc89c10074b92e85"
             onExit={this.handleOnExit}
             onSuccess={this.handleOnSuccess}
             className="plaidLink"
-            // onClick={this.handleClick}
+            // onClick={(e) => e.preventDefault()}
           >
             Open Link and connect your bank!
           </PlaidLink>

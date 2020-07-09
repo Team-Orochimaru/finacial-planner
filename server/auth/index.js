@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
+const {receivePublicToken} = require('../controllers/controller')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -16,6 +17,14 @@ router.post('/login', async (req, res, next) => {
     }
   } catch (err) {
     next(err)
+  }
+})
+
+router.post('/public_token', async (req, res, next) => {
+  try {
+    await receivePublicToken(req.body.public_token, req.user.id)
+  } catch (error) {
+    next(error)
   }
 })
 
