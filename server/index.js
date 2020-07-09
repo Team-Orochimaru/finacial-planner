@@ -55,7 +55,7 @@ const createApp = () => {
 
   // Get the public token and exchange it for an access token
   app.post('/auth/public_token', receivePublicToken)
-  // Get Transactions
+  // // Get Transactions
   app.get('/transactions', getTransactions)
   // compression middleware
   app.use(compression())
@@ -101,6 +101,9 @@ const createApp = () => {
     console.error(err.stack)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
   })
+  // app.post('/auth/public_token', receivePublicToken)
+  // // Get Transactions
+  // app.get('/transactions', getTransactions)
 }
 
 const startListening = () => {

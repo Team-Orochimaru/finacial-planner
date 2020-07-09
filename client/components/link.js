@@ -2,11 +2,16 @@ import React, {Component} from 'react'
 import {PlaidLink} from 'react-plaid-link'
 import axios from 'axios'
 import AccountOverview from './account-overview'
+import user from '../store/user'
+// import Charts from './Charts'
+
+export let currentTransaction
 class PlaidLogin extends Component {
   constructor() {
     super()
 
     this.state = {
+      plaidToken: '',
       response: null,
       transactions: [],
       test: false
@@ -25,6 +30,7 @@ class PlaidLogin extends Component {
       .then(() => {
         this.setState({test: true})
       })
+
     // await this.setState({test: true})
     // console.log(this.state.test)
   }
@@ -44,6 +50,7 @@ class PlaidLogin extends Component {
     axios.get('/transactions').then(res => {
       // console.log(res)
       this.setState({transactions: [res.data.transactions], response: res})
+      currentTransaction = [res.data.transactions][0]
     })
   }
 
@@ -85,6 +92,7 @@ class PlaidLogin extends Component {
       return (
         <div>
           <AccountOverview transactions={this.state.transactions[0]} />
+          {/* <Charts transactions={this.state.transactions[0]} /> */}
         </div>
       )
     }

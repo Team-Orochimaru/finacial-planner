@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Menu from './Menu'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <nav>
       <h1>eBudget</h1>
+      {/* <img src="../../hamburger-menu.png" /> */}
+      <Menu />
     </nav>
     {isLoggedIn ? (
       <div>
