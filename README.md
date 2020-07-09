@@ -1,9 +1,17 @@
 # eBudget
 Budgeting can be hard. Our app makes it easy to create a well-organized budget for all your personal financial needs.
 
-##About
+## About
+
 Uses technologies such as:
-Plaid api
+
+Plaid API
+
+Frontend - React, Redux
+
+Backend - Express, Sequelize, Postgress
+
+Style- Charts.js, Materialize.js
 
 Production Link: 
 
@@ -38,7 +46,7 @@ To use OAuth with Google, refactor the customized information with your own Goog
 * Ian Gelfand
 * Vasyl Semak
 
-===================================================================================================
+==================================================================================
 ## MVP
 * Users can link a bank account and pull in overall balance information and individual transactions
 * Users can set a monthly budget by spending category and track against the budget
