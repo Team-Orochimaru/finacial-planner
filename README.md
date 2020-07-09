@@ -53,7 +53,7 @@ To use OAuth with Google, refactor the customized information with your own Goog
 * Ian Gelfand
 * Vasyl Semak
 
-===============================================
+========================================================
 ## MVP
 * Users can link a bank account and pull in overall balance information and individual transactions
 * Users can set a monthly budget by spending category and track against the budget
