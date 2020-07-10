@@ -70,10 +70,8 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  //====================================================================
   // Get Transactions
   app.get('/transactions', getTransactions)
-  //====================================================================
 
   // auth and api routes
   app.use('/auth', require('./auth'))
@@ -104,6 +102,9 @@ const createApp = () => {
     console.error(err.stack)
     res.status(err.status || 500).send(err.message || 'Internal server error.')
   })
+  // app.post('/auth/public_token', receivePublicToken)
+  // // Get Transactions
+  // app.get('/transactions', getTransactions)
 }
 
 const startListening = () => {
