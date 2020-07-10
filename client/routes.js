@@ -8,13 +8,24 @@ import AccountOverview from './components/account-overview'
 import PlaidLogin from './components/link'
 import Charts from './components/Charts'
 class Routes extends Component {
+  constructor() {
+    super()
+    this.state = {}
+    this.loadPlaidToken = this.loadPlaidToken.bind(this)
+  }
   componentDidMount() {
     this.props.loadInitialData()
+    // await this.props.plaidAccessToken
+  }
+  async loadPlaidToken() {
+    await this.props.plaidAccessToken
+    console.log('plaidAccessToken: ', this.props.plaidAccessToken)
   }
 
   render() {
     const {isLoggedIn, plaidAccessToken} = this.props
-
+    console.log('plaidAccessToken222222: ', this.props.plaidAccessToken)
+    this.loadPlaidToken()
     return (
       <Switch>
         <Route exact path="/login" component={Login} />
@@ -23,20 +34,26 @@ class Routes extends Component {
         {isLoggedIn &&
           plaidAccessToken !== null && (
             <Switch>
-              <Route exact path="/home" component={UserHome} />
+              <Route path="/home" component={UserHome} />
               <Route path="/overview" component={AccountOverview} />
               <Route path="/charts" component={Charts} />
             </Switch>
           )}
         {isLoggedIn &&
           plaidAccessToken === null && (
+            // setTimeout(() => {
+            //   if (plaidAccessToken === null) {
             <Switch>
               <Route component={PlaidLogin} />
             </Switch>
           )}
+        {/* }, 1)}
+         */}
+
         {/* Displays our Login component as a fallback */}
       </Switch>
     )
+    // }, 2000)
   }
 }
 
