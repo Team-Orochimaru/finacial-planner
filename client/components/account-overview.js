@@ -8,8 +8,15 @@ import {fetchTransactions} from '../store/transactions'
  * COMPONENT
  */
 class AccountOverview extends React.Component {
-  componentDidMount() {
-    this.props.getTransactions()
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     transactions: [],
+  //   }
+  // }
+
+  async componentDidMount() {
+    await this.props.getTransactions()
     console.log('<<<<<<<<<<<:', this.props.transactions)
   }
 

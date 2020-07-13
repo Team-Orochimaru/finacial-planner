@@ -35,7 +35,6 @@ class Navbar extends Component {
             <div>
               <nav>
                 <h1>eBudget</h1>
-
                 <Menu />
               </nav>
               <Link to="/home">Home</Link>

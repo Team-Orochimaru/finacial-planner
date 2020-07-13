@@ -32,7 +32,9 @@ const receivePublicToken = async (publicToken, userId) => {
       ACCESS_TOKEN = tokenResponse.access_token
       console.log('Private access token:', ACCESS_TOKEN)
       const currentUser = await User.findByPk(userId)
-      currentUser.update({plaidAccessToken: ACCESS_TOKEN})
+      await currentUser.update({plaidAccessToken: ACCESS_TOKEN})
+
+      console.log('ACESS TOEK after receive', currentUser.plaidAccessToken)
       // ITEM_ID = tokenResponse.item_id
       // res.json({
       //   access_token: ACCESS_TOKEN,
@@ -44,13 +46,17 @@ const receivePublicToken = async (publicToken, userId) => {
   }
 }
 
-const getTransactions = (req, res) => {
+const getTransactions = async (req, res) => {
   // Pull transactions for the last 30 days
+  console.log('REQ -->', req.user.dataValues.plaidAccessToken)
+  ACCESS_TOKEN = await req.user.dataValues.plaidAccessToken
+
   let startDate = moment()
     .subtract(30, 'days')
     .format('YYYY-MM-DD')
   let endDate = moment().format('YYYY-MM-DD')
   console.log('made it past variables')
+
   client.getTransactions(
     ACCESS_TOKEN,
     startDate,
@@ -60,6 +66,7 @@ const getTransactions = (req, res) => {
       offset: 0
     },
     function(_error, transactionsResponse) {
+      console.log('from controller ->', ACCESS_TOKEN)
       res.json({transactions: transactionsResponse})
       // TRANSACTIONS LOGGED BELOW!
       // They will show up in the terminal that you are running nodemon in.
