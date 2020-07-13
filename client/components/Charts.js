@@ -8,7 +8,7 @@ const data = {
   labels: ['Red', 'Green', 'Yellow'],
   datasets: [
     {
-      data: [300, 50, 100],
+      data: [],
       backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
       hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
     }
@@ -16,19 +16,25 @@ const data = {
 }
 
 class Charts extends Component {
-  componentDidMount() {
-    this.props.getTransactions()
+  async componentDidMount() {
+    await this.props.getTransactions()
+    // const userTransaction = this.props.transactions
+    // console.log('component did mount:', userTransaction)
   }
 
   render() {
     let transactions = this.props.transactions
-
+    // console.log('Chart transaction: ', transactions[0].transactions)
     if (transactions.length) {
-      console.log('CHARTS: ', transactions)
-      data.datasets[0].data = BankAccount(transactions[0])[
-        transactions[0].accounts.account_id
-      ]
+      // console.log('!!!!!!!!!!!:', transactions[0].transactions)
+      data.datasets[0].data = [transactions[0].transactions[0].amount]
     }
+    // if (transactions.length) {
+    //   console.log('CHARTS: ', transactions)
+    // data.datasets[0].data = BankAccount(transactions[0])[
+    //   transactions[0].accounts.account_id
+    // ]
+    // }
     return <Doughnut data={data} />
   }
 }
