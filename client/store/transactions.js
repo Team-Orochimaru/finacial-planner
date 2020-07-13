@@ -20,7 +20,8 @@ const getTransactions = transactions => ({
 export const fetchTransactions = () => async dispatch => {
   try {
     const res = await axios.get('/transactions')
-    console.log('DATA: ', res)
+    console.log('fetchFromThunk -->', res)
+
     dispatch(getTransactions([res.data.transactions]))
     console.log('DATA2: ', res.data.transactions)
   } catch (err) {

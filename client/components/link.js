@@ -7,7 +7,6 @@ import AccountOverview from './account-overview'
 class PlaidLogin extends Component {
   constructor() {
     super()
-
     this.state = {
       access: false
     }
@@ -15,9 +14,9 @@ class PlaidLogin extends Component {
     this.handleOnSuccess = this.handleOnSuccess.bind(this)
   }
 
-  // componentWillUnmount() {
-  //   window.location.reload(false)
-  // }
+  componentWillUnmount() {
+    window.location.reload(false)
+  }
   async handleOnSuccess(public_token, metadata) {
     // send token to client server
     axios.post('/auth/public_token', {
@@ -38,7 +37,7 @@ class PlaidLogin extends Component {
     console.log('link:', plaidAccessToken)
     return (
       <div>
-        {!this.state.access ? (
+        {!plaidAccessToken && !this.state.access ? (
           <div>
             <PlaidLink
               clientName="eBudget"

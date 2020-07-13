@@ -297,6 +297,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_transactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/transactions */ "./client/store/transactions.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -339,10 +343,38 @@ var AccountOverview = /*#__PURE__*/function (_React$Component) {
 
   _createClass(AccountOverview, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.props.getTransactions();
-      console.log('<<<<<<<<<<<:', this.props.transactions);
-    }
+    // constructor(props) {
+    //   super(props)
+    //   this.state = {
+    //     transactions: [],
+    //   }
+    // }
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.getTransactions();
+
+              case 2:
+                console.log('<<<<<<<<<<<:', this.props.transactions);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
   }, {
     key: "render",
     value: function render() {
@@ -653,12 +685,14 @@ var PlaidLogin = /*#__PURE__*/function (_Component) {
     };
     _this.handleOnSuccess = _this.handleOnSuccess.bind(_assertThisInitialized(_this));
     return _this;
-  } // componentWillUnmount() {
-  //   window.location.reload(false)
-  // }
-
+  }
 
   _createClass(PlaidLogin, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.location.reload(false);
+    }
+  }, {
     key: "handleOnSuccess",
     value: function () {
       var _handleOnSuccess = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(public_token, metadata) {
@@ -699,7 +733,7 @@ var PlaidLogin = /*#__PURE__*/function (_Component) {
     value: function render() {
       var plaidAccessToken = this.props.plaidAccessToken;
       console.log('link:', plaidAccessToken);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !this.state.access ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_plaid_link__WEBPACK_IMPORTED_MODULE_1__["PlaidLink"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !plaidAccessToken && !this.state.access ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_plaid_link__WEBPACK_IMPORTED_MODULE_1__["PlaidLink"], {
         clientName: "eBudget",
         env: "sandbox",
         product: ['auth', 'transactions'],
@@ -1057,9 +1091,6 @@ var Routes = /*#__PURE__*/function (_Component) {
                 return this.props.plaidAccessToken;
 
               case 2:
-                console.log('plaidAccessToken: ', this.props.plaidAccessToken);
-
-              case 3:
               case "end":
                 return _context.stop();
             }
@@ -1079,7 +1110,7 @@ var Routes = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           isLoggedIn = _this$props.isLoggedIn,
           plaidAccessToken = _this$props.plaidAccessToken;
-      console.log('plaidAccessToken222222: ', this.props.plaidAccessToken);
+      console.log('plaidAccessToken from routes.component: ', this.props.plaidAccessToken);
       this.loadPlaidToken();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
@@ -1259,7 +1290,7 @@ var fetchTransactions = function fetchTransactions() {
 
             case 3:
               res = _context.sent;
-              console.log('DATA: ', res);
+              console.log('fetchFromThunk -->', res);
               dispatch(getTransactions([res.data.transactions]));
               console.log('DATA2: ', res.data.transactions);
               _context.next = 12;

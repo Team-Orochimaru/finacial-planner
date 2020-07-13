@@ -19,12 +19,15 @@ class Routes extends Component {
   }
   async loadPlaidToken() {
     await this.props.plaidAccessToken
-    console.log('plaidAccessToken: ', this.props.plaidAccessToken)
+    // console.log('plaidAccessToken: ', this.props.plaidAccessToken)
   }
 
   render() {
     const {isLoggedIn, plaidAccessToken} = this.props
-    console.log('plaidAccessToken222222: ', this.props.plaidAccessToken)
+    console.log(
+      'plaidAccessToken from routes.component: ',
+      this.props.plaidAccessToken
+    )
     this.loadPlaidToken()
     return (
       <Switch>
