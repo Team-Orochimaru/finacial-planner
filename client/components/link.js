@@ -20,9 +20,6 @@ class PlaidLogin extends Component {
     this.props.history.push('/overview')
   }
 
-  componentWillUnmount() {
-    window.location.reload(false)
-  }
   async handleOnSuccess(public_token, metadata) {
     const publicToken = axios.post('/auth/public_token', {
       public_token: public_token
@@ -38,7 +35,7 @@ class PlaidLogin extends Component {
   render() {
     return (
       <div>
-        {!plaidAccessToken && !this.state.access ? (
+        {!this.state.plaidAccess ? (
           <div>
             <PlaidLink
               clientName="eBudget"

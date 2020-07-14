@@ -6,21 +6,21 @@ import {logout} from '../store'
 // import Menu from './Menu'
 // import M from '../../public/materialize-v1.0.0/materialize/js/materialize.min.js'
 class Navbar extends Component {
-  constructor() {
-    super()
-    this.state = {
-      access: false
-    }
-    // this.handleOnSuccess = this.handleOnSuccess.bind(this)
-  }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     access: false,
+  //   }
+  //   // this.handleOnSuccess = this.handleOnSuccess.bind(this)
+  // }
   componentDidMount() {
-    let sidenav = document.querySelector('#slide-out')
-    M.Sidenav.init(sidenav, {})
+    // let sidenav = document.querySelector('#slide-out')
+    // M.Sidenav.init(sidenav, {})
   }
 
   render() {
     const {handleClick, isLoggedIn, plaidAccessToken} = this.props
-    console.log('navbarRender: ', this.state.access)
+    console.log('navbarRender: ', this.props)
     return (
       <div>
         {isLoggedIn &&
@@ -28,7 +28,11 @@ class Navbar extends Component {
             <div>
               <nav className="orange" role="navigation">
                 <div className="nav-wrapper container">
-                  <a href="/" id="logo-container" className="brand-logo">
+                  <a
+                    href="/overview"
+                    id="logo-container"
+                    className="brand-logo"
+                  >
                     eBudget
                   </a>
                   <ul className="right hide-on-med-and-down">

@@ -8,16 +8,8 @@ import {fetchTransactions} from '../store/transactions'
  * COMPONENT
  */
 class AccountOverview extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     transactions: [],
-  //   }
-  // }
-
   async componentDidMount() {
     await this.props.getTransactions()
-    console.log('<<<<<<<<<<<:', this.props.transactions)
   }
 
   render() {
@@ -50,7 +42,6 @@ class AccountOverview extends React.Component {
                       transactions={
                         BankAccount(transactions[0])[account.account_id]
                       }
-                      // date={BankAccount(transactions[0].date)}
                     />
                   </div>
                 )
