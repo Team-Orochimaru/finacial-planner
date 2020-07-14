@@ -1,4 +1,5 @@
 # eBudget
+
 Budgeting can be hard. Our app makes it easy to create a well-organized budget for all your personal financial needs.
 
 ## About
@@ -13,9 +14,10 @@ Backend - Express, Sequelize, Postgress
 
 Style- Charts.js, Materialize.js
 
-Production Link: 
+Production Link:
 
 ## Installing
+
 git clone https://github.com/Team-Orochimaru/financial-planner.git
 
 npm install
@@ -24,7 +26,7 @@ createdb financial-planner: create postgres database
 
 npm run start-dev: start developer environment with local server and webpack
 
-npm run seed: populate database with dummy users 
+npm run seed: populate database with dummy users
 
 Visit http://localhost:8080 to start shopping on a local server.
 
@@ -45,16 +47,20 @@ process.env.GOOGLE_CLIENT_SECRET = 'Your Google Client Secret here'
 process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 
 # OAuth
+
 To use OAuth with Google, refactor the customized information with your own Google Client information. You may find them from Google API dashboard.
 
 # Authors
+
 * Rob Arcand
 * Iskak Mantyubetov
 * Ian Gelfand
 * Vasyl Semak
 
 ========================================================
+
 ## MVP
+
 * Users can link a bank account and pull in overall balance information and individual transactions
 * Users can set a monthly budget by spending category and track against the budget
 * Users can see their spending by category
@@ -62,12 +68,12 @@ To use OAuth with Google, refactor the customized information with your own Goog
 * Data visualization for key charts / graphs
 
 ## Stretch Goals
+
 * Differentiating between bank transactions (debit card) vs. credit card transactions
 * Email or text alerts when bills are due
 * 401K calculator
 * Subscription management (i.e. a clear way to see which subscriptions, such as Spotify, Apple Music, etc, that a user is signed up for and aiming to help cancel unused subscriptions)
 * Mobile application
-Technical Challenges
+  Technical Challenges
 * Third party integration
 * Intuitive UI / UX
-

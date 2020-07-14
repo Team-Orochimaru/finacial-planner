@@ -2,29 +2,32 @@ import React, {Component} from 'react'
 import {PlaidLink} from 'react-plaid-link'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import AccountOverview from './account-overview'
+import {withRouter} from 'react-router-dom'
+import {setAccessTokenFetch} from '../store/user'
 
 class PlaidLogin extends Component {
   constructor() {
     super()
     this.state = {
-      access: false
+      plaidAccess: false
     }
 
     this.handleOnSuccess = this.handleOnSuccess.bind(this)
+    this.getTransactions = this.getTransactions.bind(this)
+  }
+  async getTransactions() {
+    await this.props.setAccessTokenFetch(this.props.userId)
+    this.props.history.push('/overview')
   }
 
   componentWillUnmount() {
     window.location.reload(false)
   }
   async handleOnSuccess(public_token, metadata) {
-    // send token to client server
-    axios.post('/auth/public_token', {
+    const publicToken = axios.post('/auth/public_token', {
       public_token: public_token
     })
-    await this.setState({access: true})
-
-    // window.location.reload(false)
+    this.setState({plaidAccess: true})
   }
 
   handleOnExit() {
@@ -33,8 +36,6 @@ class PlaidLogin extends Component {
   }
 
   render() {
-    const {plaidAccessToken} = this.props
-    console.log('link:', plaidAccessToken)
     return (
       <div>
         {!plaidAccessToken && !this.state.access ? (
@@ -47,14 +48,15 @@ class PlaidLogin extends Component {
               onExit={this.handleOnExit}
               onSuccess={this.handleOnSuccess}
               className="plaidLink"
-              // onClick={(e) => e.preventDefault()}
             >
               Open Link and connect your bank!
             </PlaidLink>
           </div>
         ) : (
           <div>
-            <AccountOverview />
+            <button type="submit" onClick={this.getTransactions}>
+              Get your bank transactions
+            </button>
           </div>
         )}
       </div>
@@ -64,11 +66,14 @@ class PlaidLogin extends Component {
 
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
-    plaidAccessToken: state.user.plaidAccessToken
+    plaidAccessToken: state.user.plaidAccessToken,
+    userId: state.user.id
   }
 }
 
-export default connect(mapState, null)(PlaidLogin)
-
-// export default PlaidLogin
+const mapDispatch = dispatch => {
+  return {
+    setAccessTokenFetch: id => dispatch(setAccessTokenFetch(id))
+  }
+}
+export default withRouter(connect(mapState, mapDispatch)(PlaidLogin))

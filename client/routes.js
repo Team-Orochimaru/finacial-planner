@@ -35,23 +35,19 @@ class Routes extends Component {
         <Route exact path="/signup" component={Signup} />
 
         {isLoggedIn &&
-          plaidAccessToken !== null && (
+          plaidAccessToken && (
             <Switch>
-              <Route path="/home" component={UserHome} />
               <Route path="/overview" component={AccountOverview} />
+              <Route exact path="/home" component={UserHome} />
               <Route path="/charts" component={Charts} />
             </Switch>
           )}
         {isLoggedIn &&
-          plaidAccessToken === null && (
-            // setTimeout(() => {
-            //   if (plaidAccessToken === null) {
+          !plaidAccessToken && (
             <Switch>
               <Route component={PlaidLogin} />
             </Switch>
           )}
-        {/* }, 1)}
-         */}
 
         {/* Displays our Login component as a fallback */}
       </Switch>

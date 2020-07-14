@@ -1,7 +1,6 @@
 var plaid = require('plaid')
 var moment = require('moment')
 const User = require('../db/models/user')
-const {object} = require('prop-types')
 
 var PLAID_CLIENT_ID = process.env.PLAID_CLIENT_ID
 var PLAID_SECRET = process.env.PLAID_SECRET
@@ -9,8 +8,8 @@ var PLAID_PUBLIC_KEY = process.env.PLAID_PUBLIC_KEY
 var PLAID_ENV = 'sandbox'
 
 var ACCESS_TOKEN = null
-var PUBLIC_TOKEN = null
-var ITEM_ID = null
+// var PUBLIC_TOKEN = null
+// var ITEM_ID = null
 
 // Initialize the Plaid client
 var client = new plaid.Client(
@@ -48,9 +47,7 @@ const receivePublicToken = async (publicToken, userId) => {
 
 const getTransactions = async (req, res) => {
   // Pull transactions for the last 30 days
-  console.log('REQ -->', req.user.dataValues.plaidAccessToken)
-  ACCESS_TOKEN = await req.user.dataValues.plaidAccessToken
-
+  ACCESS_TOKEN = req.user.plaidAccessToken
   let startDate = moment()
     .subtract(30, 'days')
     .format('YYYY-MM-DD')
