@@ -30,7 +30,11 @@ if (process.env.NODE_ENV === 'test') {
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-const {getTransactions} = require('./controllers/controller')
+const {
+  receivePublicToken,
+  getTransactions,
+  yearlyTransaction
+} = require('./controllers/controller')
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -69,6 +73,7 @@ const createApp = () => {
 
   // Get Transactions
   app.get('/transactions', getTransactions)
+  app.get('/yearlyTransaction', yearlyTransaction)
 
   // auth and api routes
   app.use('/auth', require('./auth'))

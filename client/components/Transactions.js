@@ -2,14 +2,17 @@ import React from 'react'
 
 const Transactions = props => {
   const {transactions} = props
+  // console.log('transaction file', date)
   return (
     <div>
       {transactions.map((transaction, idx) => {
         let counter = idx
         return (
-          <p key={counter}>
-            {transaction.merchantName}: ${transaction.amount}
-          </p>
+          <div key={counter}>
+            <p>
+              {transaction.merchantName}: ${transaction.amount}
+            </p>
+          </div>
         )
       })}
     </div>
