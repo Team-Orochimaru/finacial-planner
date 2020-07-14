@@ -1,5 +1,4 @@
 const BankAccount = transactions => {
-  // let bankAccount = {id: [{merchant: amount}]}
   let bankAccount = {}
   for (let i = 0; i < transactions.transactions.length; ++i) {
     let accountTransactions = []

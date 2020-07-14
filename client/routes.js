@@ -19,36 +19,31 @@ class Routes extends Component {
   }
   async loadPlaidToken() {
     await this.props.plaidAccessToken
-    console.log('plaidAccessToken: ', this.props.plaidAccessToken)
   }
 
   render() {
     const {isLoggedIn, plaidAccessToken} = this.props
-    console.log('plaidAccessToken222222: ', this.props.plaidAccessToken)
-    this.loadPlaidToken()
+
+    // this.loadPlaidToken()
     return (
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
 
         {isLoggedIn &&
-          plaidAccessToken !== null && (
+          plaidAccessToken && (
             <Switch>
-              <Route path="/home" component={UserHome} />
               <Route path="/overview" component={AccountOverview} />
+              <Route exact path="/home" component={UserHome} />
               <Route path="/charts" component={Charts} />
             </Switch>
           )}
         {isLoggedIn &&
-          plaidAccessToken === null && (
-            // setTimeout(() => {
-            //   if (plaidAccessToken === null) {
+          !plaidAccessToken && (
             <Switch>
               <Route component={PlaidLogin} />
             </Switch>
           )}
-        {/* }, 1)}
-         */}
 
         {/* Displays our Login component as a fallback */}
       </Switch>

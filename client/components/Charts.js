@@ -24,7 +24,6 @@ class Charts extends Component {
     let transactions = this.props.transactions
 
     if (transactions.length) {
-      console.log('CHARTS: ', transactions)
       data.datasets[0].data = BankAccount(transactions[0])[
         transactions[0].accounts.account_id
       ]

@@ -188,7 +188,6 @@ var Charts = /*#__PURE__*/function (_Component) {
       var transactions = this.props.transactions;
 
       if (transactions.length) {
-        console.log('CHARTS: ', transactions);
         data.datasets[0].data = Object(_currentAccount__WEBPACK_IMPORTED_MODULE_3__["default"])(transactions[0])[transactions[0].accounts.account_id];
       }
 
@@ -234,19 +233,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./navbar */ "./client/components/navbar.js");
 
 
 
 
 
-var Menu = function Menu() {
+
+var Menu = function Menu(_ref) {
+  var handleClick = _ref.handleClick;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "menu"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/home"
+  }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/overview"
   }, "Account Overview"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
     to: "/charts"
-  }, "Charts"));
+  }, "Charts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "#",
+    onClick: handleClick
+  }, "Logout"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Menu);
@@ -341,18 +348,15 @@ var AccountOverview = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.getTransactions();
-      console.log('<<<<<<<<<<<:', this.props.transactions);
     }
   }, {
     key: "render",
     value: function render() {
-      console.log('>>>>>>>>>>>>>>> :', this.props.transactions);
       var transactions = this.props.transactions;
       var transAmount = 0;
 
       if (transactions.length) {
         transactions = this.props.transactions;
-        console.log('!!!!!!!!!!!:', transactions);
         transactions[0].transactions.map(function (transaction) {
           transAmount += transaction.amount;
         });
@@ -380,7 +384,8 @@ var AccountOverview = /*#__PURE__*/function (_React$Component) {
 
 var mapState = function mapState(state) {
   return {
-    transactions: state.transactions
+    transactions: state.transactions,
+    plaidAccessToken: state.user.plaidAccessToken
   };
 };
 
@@ -509,7 +514,6 @@ AuthForm.propTypes = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var BankAccount = function BankAccount(transactions) {
-  // let bankAccount = {id: [{merchant: amount}]}
   var bankAccount = {};
 
   for (var i = 0; i < transactions.transactions.length; ++i) {
@@ -604,7 +608,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _account_overview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./account-overview */ "./client/components/account-overview.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _store_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../store/user */ "./client/store/user.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -637,43 +642,39 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var PlaidLogin = /*#__PURE__*/function (_Component) {
   _inherits(PlaidLogin, _Component);
 
   var _super = _createSuper(PlaidLogin);
 
-  function PlaidLogin() {
+  function PlaidLogin(props) {
     var _this;
 
     _classCallCheck(this, PlaidLogin);
 
-    _this = _super.call(this);
+    _this = _super.call(this, props);
     _this.state = {
-      access: false
+      plaidAccess: false
     };
     _this.handleOnSuccess = _this.handleOnSuccess.bind(_assertThisInitialized(_this));
+    _this.getTransactions = _this.getTransactions.bind(_assertThisInitialized(_this));
     return _this;
-  } // componentWillUnmount() {
-  //   window.location.reload(false)
-  // }
-
+  }
 
   _createClass(PlaidLogin, [{
-    key: "handleOnSuccess",
+    key: "getTransactions",
     value: function () {
-      var _handleOnSuccess = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(public_token, metadata) {
+      var _getTransactions = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // send token to client server
-                axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/auth/public_token', {
-                  public_token: public_token
-                });
-                _context.next = 3;
-                return this.setState({
-                  access: true
-                });
+                _context.next = 2;
+                return this.props.setAccessTokenFetch(this.props.userId);
+
+              case 2:
+                this.props.history.push('/overview');
 
               case 3:
               case "end":
@@ -681,6 +682,36 @@ var PlaidLogin = /*#__PURE__*/function (_Component) {
             }
           }
         }, _callee, this);
+      }));
+
+      function getTransactions() {
+        return _getTransactions.apply(this, arguments);
+      }
+
+      return getTransactions;
+    }()
+  }, {
+    key: "handleOnSuccess",
+    value: function () {
+      var _handleOnSuccess = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(public_token, metadata) {
+        var publicToken;
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                publicToken = axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/auth/public_token', {
+                  public_token: public_token
+                });
+                this.setState({
+                  plaidAccess: true
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
       }));
 
       function handleOnSuccess(_x, _x2) {
@@ -697,18 +728,18 @@ var PlaidLogin = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var plaidAccessToken = this.props.plaidAccessToken;
-      console.log('link:', plaidAccessToken);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !this.state.access ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_plaid_link__WEBPACK_IMPORTED_MODULE_1__["PlaidLink"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, !this.state.plaidAccess ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_plaid_link__WEBPACK_IMPORTED_MODULE_1__["PlaidLink"], {
         clientName: "eBudget",
         env: "sandbox",
         product: ['auth', 'transactions'],
         publicKey: "ae9b699cddb974bc89c10074b92e85",
         onExit: this.handleOnExit,
         onSuccess: this.handleOnSuccess,
-        className: "plaidLink" // onClick={(e) => e.preventDefault()}
-
-      }, "Open Link and connect your bank!")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_account_overview__WEBPACK_IMPORTED_MODULE_4__["default"], null)));
+        className: "plaidLink"
+      }, "Open Link and connect your bank!")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "submit",
+        onClick: this.getTransactions
+      }, "Get your bank transactions")));
     }
   }]);
 
@@ -717,12 +748,20 @@ var PlaidLogin = /*#__PURE__*/function (_Component) {
 
 var mapState = function mapState(state) {
   return {
-    isLoggedIn: !!state.user.id,
-    plaidAccessToken: state.user.plaidAccessToken
+    plaidAccessToken: state.user.plaidAccessToken,
+    userId: state.user.id
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, null)(PlaidLogin)); // export default PlaidLogin
+var mapDispatch = function mapDispatch(dispatch) {
+  return {
+    setAccessTokenFetch: function setAccessTokenFetch(id) {
+      return dispatch(Object(_store_user__WEBPACK_IMPORTED_MODULE_5__["setAccessTokenFetch"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(PlaidLogin)));
 
 /***/ }),
 
@@ -743,10 +782,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store */ "./client/store/index.js");
 /* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Menu */ "./client/components/Menu.js");
-/* harmony import */ var _link__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./link */ "./client/components/link.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -775,63 +815,64 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
-
 var Navbar = /*#__PURE__*/function (_Component) {
   _inherits(Navbar, _Component);
 
   var _super = _createSuper(Navbar);
 
   function Navbar() {
-    var _this;
-
     _classCallCheck(this, Navbar);
 
-    _this = _super.call(this);
-    _this.state = {
-      access: false
-    }; // this.handleOnSuccess = this.handleOnSuccess.bind(this)
-
-    return _this;
-  } // async handleOnSuccess(public_token, metadata) {
-  //   // send token to client server
-  //   await axios.post('/auth/public_token', {
-  //     public_token: public_token,
-  //   })
-  //   await this.setState({access: true})
-  //   console.log('navbar: ', this.state.access)
-  // }
-
+    return _super.apply(this, arguments);
+  }
 
   _createClass(Navbar, [{
+    key: "componentDidMount",
+    value: function () {
+      var _componentDidMount = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.props.plaidAccessToken;
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function componentDidMount() {
+        return _componentDidMount.apply(this, arguments);
+      }
+
+      return componentDidMount;
+    }()
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           handleClick = _this$props.handleClick,
           isLoggedIn = _this$props.isLoggedIn,
           plaidAccessToken = _this$props.plaidAccessToken;
-      console.log('navbarRender: ', this.state.access);
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, isLoggedIn && plaidAccessToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "eBudget"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Menu__WEBPACK_IMPORTED_MODULE_5__["default"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        to: "/home"
-      }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "#",
-        onClick: handleClick
-      }, "Logout")), isLoggedIn && !plaidAccessToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "eBudget")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-        to: "/home"
-      }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "#",
-        onClick: handleClick
-      }, "Logout")), !isLoggedIn && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "eBudget")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit",
-        className: "login"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+      var loginBotton = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
         to: "/login"
-      }, "Login")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "submit",
-        className: "signup"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+      }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
         to: "/signup"
-      }, "Sign Up"))));
+      }, "Sign Up"));
+      var plaidLogin = !plaidAccessToken ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+        to: "/home"
+      }, "Home"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "#",
+        onClick: handleClick
+      }, "Logout")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Menu__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        handleClick: handleClick
+      }));
+      var login = isLoggedIn ? plaidLogin : loginBotton;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "eBudget"), login));
     }
   }]);
 
@@ -1057,9 +1098,6 @@ var Routes = /*#__PURE__*/function (_Component) {
                 return this.props.plaidAccessToken;
 
               case 2:
-                console.log('plaidAccessToken: ', this.props.plaidAccessToken);
-
-              case 3:
               case "end":
                 return _context.stop();
             }
@@ -1078,9 +1116,8 @@ var Routes = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this$props = this.props,
           isLoggedIn = _this$props.isLoggedIn,
-          plaidAccessToken = _this$props.plaidAccessToken;
-      console.log('plaidAccessToken222222: ', this.props.plaidAccessToken);
-      this.loadPlaidToken();
+          plaidAccessToken = _this$props.plaidAccessToken; // this.loadPlaidToken()
+
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,
         path: "/login",
@@ -1089,20 +1126,17 @@ var Routes = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/signup",
         component: _components__WEBPACK_IMPORTED_MODULE_4__["Signup"]
-      }), isLoggedIn && plaidAccessToken !== null && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        path: "/home",
-        component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }), isLoggedIn && plaidAccessToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/overview",
         component: _components_account_overview__WEBPACK_IMPORTED_MODULE_6__["default"]
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/home",
+        component: _components__WEBPACK_IMPORTED_MODULE_4__["UserHome"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/charts",
         component: _components_Charts__WEBPACK_IMPORTED_MODULE_8__["default"]
-      })), isLoggedIn && plaidAccessToken === null &&
-      /*#__PURE__*/
-      // setTimeout(() => {
-      //   if (plaidAccessToken === null) {
-      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      })), isLoggedIn && !plaidAccessToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         component: _components_link__WEBPACK_IMPORTED_MODULE_7__["default"]
       }))); // }, 2000)
     }
@@ -1170,7 +1204,7 @@ socket.on('connect', function () {
 /*!*******************************!*\
   !*** ./client/store/index.js ***!
   \*******************************/
-/*! exports provided: default, me, auth, logout */
+/*! exports provided: default, me, auth, setAccessTokenFetch, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1186,6 +1220,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "me", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["me"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["auth"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "setAccessTokenFetch", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["setAccessTokenFetch"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return _user__WEBPACK_IMPORTED_MODULE_4__["logout"]; });
 
@@ -1259,23 +1295,21 @@ var fetchTransactions = function fetchTransactions() {
 
             case 3:
               res = _context.sent;
-              console.log('DATA: ', res);
               dispatch(getTransactions([res.data.transactions]));
-              console.log('DATA2: ', res.data.transactions);
-              _context.next = 12;
+              _context.next = 10;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 7:
+              _context.prev = 7;
               _context.t0 = _context["catch"](0);
               console.error(_context.t0);
 
-            case 12:
+            case 10:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[0, 9]]);
+      }, _callee, null, [[0, 7]]);
     }));
 
     return function (_x) {
@@ -1306,17 +1340,24 @@ var fetchTransactions = function fetchTransactions() {
 /*!******************************!*\
   !*** ./client/store/user.js ***!
   \******************************/
-/*! exports provided: me, auth, logout, default */
+/*! exports provided: me, auth, setAccessTokenFetch, logout, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "me", function() { return me; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "auth", function() { return auth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setAccessTokenFetch", function() { return setAccessTokenFetch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _history__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../history */ "./client/history.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -1329,6 +1370,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var GET_USER = 'GET_USER';
 var REMOVE_USER = 'REMOVE_USER';
+var SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
 /**
  * INITIAL STATE
  */
@@ -1348,6 +1390,13 @@ var getUser = function getUser(user) {
 var removeUser = function removeUser() {
   return {
     type: REMOVE_USER
+  };
+};
+
+var setAccessToken = function setAccessToken(accessToken) {
+  return {
+    type: SET_ACCESS_TOKEN,
+    accessToken: accessToken
   };
 };
 /**
@@ -1391,7 +1440,7 @@ var me = function me() {
     };
   }();
 };
-var auth = function auth(email, password, method) {
+var auth = function auth(email, password, method, plaidAccessToken) {
   return /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(dispatch) {
       var res;
@@ -1403,7 +1452,8 @@ var auth = function auth(email, password, method) {
               _context2.next = 3;
               return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/auth/".concat(method), {
                 email: email,
-                password: password
+                password: password,
+                plaidAccessToken: plaidAccessToken
               });
 
             case 3:
@@ -1439,27 +1489,28 @@ var auth = function auth(email, password, method) {
     };
   }();
 };
-var logout = function logout() {
+var setAccessTokenFetch = function setAccessTokenFetch(userId) {
   return /*#__PURE__*/function () {
     var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch) {
+      var res;
       return regeneratorRuntime.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               _context3.prev = 0;
               _context3.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/logout');
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users/".concat(userId));
 
             case 3:
-              dispatch(removeUser());
-              _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
+              res = _context3.sent;
+              dispatch(setAccessToken(res.data.plaidAccessToken));
               _context3.next = 10;
               break;
 
             case 7:
               _context3.prev = 7;
               _context3.t0 = _context3["catch"](0);
-              console.error(_context3.t0);
+              console.log(_context3.t0);
 
             case 10:
             case "end":
@@ -1471,6 +1522,41 @@ var logout = function logout() {
 
     return function (_x3) {
       return _ref3.apply(this, arguments);
+    };
+  }();
+};
+var logout = function logout() {
+  return /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(dispatch) {
+      return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/auth/logout');
+
+            case 3:
+              dispatch(removeUser());
+              _history__WEBPACK_IMPORTED_MODULE_1__["default"].push('/login');
+              _context4.next = 10;
+              break;
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              console.error(_context4.t0);
+
+            case 10:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 7]]);
+    }));
+
+    return function (_x4) {
+      return _ref4.apply(this, arguments);
     };
   }();
 };
@@ -1488,6 +1574,11 @@ var logout = function logout() {
 
     case REMOVE_USER:
       return defaultUser;
+
+    case SET_ACCESS_TOKEN:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        plaidAccessToken: action.accessToken
+      });
 
     default:
       return state;

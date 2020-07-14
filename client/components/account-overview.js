@@ -10,16 +10,13 @@ import {fetchTransactions} from '../store/transactions'
 class AccountOverview extends React.Component {
   componentDidMount() {
     this.props.getTransactions()
-    console.log('<<<<<<<<<<<:', this.props.transactions)
   }
 
   render() {
-    console.log('>>>>>>>>>>>>>>> :', this.props.transactions)
     let transactions = this.props.transactions
     let transAmount = 0
     if (transactions.length) {
       transactions = this.props.transactions
-      console.log('!!!!!!!!!!!:', transactions)
       transactions[0].transactions.map(transaction => {
         transAmount += transaction.amount
       })
@@ -59,7 +56,8 @@ class AccountOverview extends React.Component {
 
 const mapState = state => {
   return {
-    transactions: state.transactions
+    transactions: state.transactions,
+    plaidAccessToken: state.user.plaidAccessToken
   }
 }
 
