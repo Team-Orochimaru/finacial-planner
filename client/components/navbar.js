@@ -4,8 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 // import Menu from './Menu'
-import PlaidLogin from './link'
-import axios from 'axios'
 // import M from '../../public/materialize-v1.0.0/materialize/js/materialize.min.js'
 class Navbar extends Component {
   constructor() {
@@ -19,14 +17,7 @@ class Navbar extends Component {
     let sidenav = document.querySelector('#slide-out')
     M.Sidenav.init(sidenav, {})
   }
-  // async handleOnSuccess(public_token, metadata) {
-  //   // send token to client server
-  //   await axios.post('/auth/public_token', {
-  //     public_token: public_token,
-  //   })
-  //   await this.setState({access: true})
-  //   console.log('navbar: ', this.state.access)
-  // }
+
   render() {
     const {handleClick, isLoggedIn, plaidAccessToken} = this.props
     console.log('navbarRender: ', this.state.access)
@@ -35,17 +26,10 @@ class Navbar extends Component {
         {isLoggedIn &&
           plaidAccessToken && (
             <div>
-              <nav className="nav-wrapper orange" role="navigation">
+              <nav className="orange" role="navigation">
                 <div className="nav-wrapper container">
-                  <Link to="/" id="logo-container" className="brand-logo">
+                  <a href="/" id="logo-container" className="brand-logo">
                     eBudget
-                  </Link>
-                  <a
-                    href="#"
-                    data-target="slide-out"
-                    className="sidenav-trigger"
-                  >
-                    <i className="material-icons">menu</i>
                   </a>
                   <ul className="right hide-on-med-and-down">
                     <li>
@@ -55,16 +39,23 @@ class Navbar extends Component {
                       <a href="/charts">Charts</a>
                     </li>
                   </ul>
+                  <ul id="nav-mobile" className="sidenav">
+                    <li>
+                      <a href="/overview">Account Overview</a>
+                    </li>
+                    <li>
+                      <a href="/charts">Charts</a>
+                    </li>
+                  </ul>
+                  <a
+                    href="#"
+                    data-target="nav-mobile"
+                    className="sidenav-trigger"
+                  >
+                    <i className="material-icons">menu</i>
+                  </a>
                 </div>
               </nav>
-              <ul id="slide-out" className="sidenav">
-                <li>
-                  <a href="/overview">Account Overview</a>
-                </li>
-                <li>
-                  <a href="/charts">Charts</a>
-                </li>
-              </ul>
               <Link to="/home">Home</Link>
               <a href="#" onClick={handleClick}>
                 Logout
@@ -76,7 +67,9 @@ class Navbar extends Component {
             <div>
               <nav className="orange" role="navigation">
                 <div className="nav-wrapper container">
-                  <Link to="/">eBudget</Link>
+                  <Link to="/" id="logo-container" className="brand-logo">
+                    eBudget
+                  </Link>
                 </div>
               </nav>
               <Link to="/home">Home</Link>
@@ -93,7 +86,9 @@ class Navbar extends Component {
           <div>
             <nav className="orange" role="navigation">
               <div className="nav-wrapper container">
-                <Link to="/">eBudget</Link>
+                <Link to="/" id="logo-container" className="brand-logo">
+                  eBudget
+                </Link>
               </div>
             </nav>
             <ul className="right hide-on-med-and-down">
