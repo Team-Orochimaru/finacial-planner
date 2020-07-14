@@ -6,7 +6,6 @@ export default class Charts extends Component {
   render() {
     return (
       <div>
-        {/* <MonthlySpend /> */}
         <YearlySpend />
       </div>
     )
