@@ -45,13 +45,14 @@ class AccountOverview extends React.Component {
               let count = index
               if (BankAccount(transactions[0])[account.account_id]) {
                 return (
-                  <div key={count} className="accountTransationContainer">
+                  <div key={count} className="accountTransactionContainer">
                     <h3>{account.name}</h3>
 
                     <Transactions
                       transactions={
                         BankAccount(transactions[0])[account.account_id]
                       }
+                      // date={BankAccount(transactions[0].date)}
                     />
                   </div>
                 )

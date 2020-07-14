@@ -75,7 +75,31 @@ const getTransactions = async (req, res) => {
   )
 }
 
+const yearlyTransaction = async (req, res) => {
+  ACCESS_TOKEN = await req.user.dataValues.plaidAccessToken
+
+  let startDate = moment()
+    .subtract(365, 'days')
+    .format('YYYY-MM-DD')
+  let endDate = moment().format('YYYY-MM-DD')
+  console.log('made it past variables')
+
+  client.getTransactions(
+    ACCESS_TOKEN,
+    startDate,
+    endDate,
+    {
+      count: 250,
+      offset: 0
+    },
+    function(_error, transactionsResponse) {
+      res.json({transactions: transactionsResponse})
+    }
+  )
+}
+
 module.exports = {
   receivePublicToken,
-  getTransactions
+  getTransactions,
+  yearlyTransaction
 }
