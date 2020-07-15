@@ -130,10 +130,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var Categories = function Categories(props) {
   var labels = props.categories.labels;
-  var payments = props.categories.datasets.data;
-  console.log('Categories Props -->', props.categories);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, payments.map(function (payment, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null));
+  var payments = props.categories.datasets[0].data;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "CATEGORIES: "), payments.map(function (payment, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      key: payment
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, labels[i], ": ", payment));
   }));
 };
 
@@ -748,9 +749,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-chartjs-2 */ "./node_modules/react-chartjs-2/es/index.js");
-/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Categories */ "./client/components/Categories.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _store_transactions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../store/transactions */ "./client/store/transactions.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _store_transactions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store/transactions */ "./client/store/transactions.js");
+/* harmony import */ var _Categories__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Categories */ "./client/components/Categories.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -831,7 +832,6 @@ var MonthlySpend = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var transactions = this.props.transactions;
-      console.log('monthly', transactions);
 
       if (transactions.length) {
         transactions[0].transactions.map(function (index) {
@@ -847,11 +847,11 @@ var MonthlySpend = /*#__PURE__*/function (_Component) {
         });
       }
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Doughnut"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, transactions.length ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_chartjs_2__WEBPACK_IMPORTED_MODULE_1__["Doughnut"], {
         data: data
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Categories__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Categories__WEBPACK_IMPORTED_MODULE_4__["default"], {
         categories: data
-      }));
+      })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Loading..."));
     }
   }]);
 
@@ -867,12 +867,12 @@ var mapState = function mapState(state) {
 var mapDispatch = function mapDispatch(dispatch) {
   return {
     getTransactions: function getTransactions() {
-      return dispatch(Object(_store_transactions__WEBPACK_IMPORTED_MODULE_4__["fetchTransactions"])());
+      return dispatch(Object(_store_transactions__WEBPACK_IMPORTED_MODULE_3__["fetchTransactions"])());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapState, mapDispatch)(MonthlySpend));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapState, mapDispatch)(MonthlySpend));
 
 /***/ }),
 
@@ -951,7 +951,6 @@ var Navbar = /*#__PURE__*/function (_Component) {
           handleClick = _this$props.handleClick,
           isLoggedIn = _this$props.isLoggedIn,
           plaidAccessToken = _this$props.plaidAccessToken;
-      console.log('navbarRender: ', this.props);
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, isLoggedIn && plaidAccessToken && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "orange",
         role: "navigation"
@@ -1370,7 +1369,7 @@ var Routes = /*#__PURE__*/function (_Component) {
   _createClass(Routes, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.loadInitialData(); // await this.props.plaidAccessToken
+      this.props.loadInitialData();
     }
   }, {
     key: "loadPlaidToken",
@@ -1403,7 +1402,6 @@ var Routes = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           isLoggedIn = _this$props.isLoggedIn,
           plaidAccessToken = _this$props.plaidAccessToken;
-      console.log('plaidAccessToken from routes.component: ', this.props.plaidAccessToken);
       this.loadPlaidToken();
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         exact: true,

@@ -20,7 +20,7 @@ class Navbar extends Component {
 
   render() {
     const {handleClick, isLoggedIn, plaidAccessToken} = this.props
-    console.log('navbarRender: ', this.props)
+
     return (
       <div>
         {isLoggedIn &&
@@ -80,10 +80,6 @@ class Navbar extends Component {
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-              {/* <PlaidLogin
-              handleOnSuccess={this.handleOnSuccess}
-              access={this.state.access}
-            /> */}
             </div>
           )}
         {!isLoggedIn && (

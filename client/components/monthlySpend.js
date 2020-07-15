@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Doughnut} from 'react-chartjs-2'
 import {connect} from 'react-redux'
 import {fetchTransactions} from '../store/transactions'
+import Categories from './Categories'
 
 const data = {
   labels: [],
@@ -28,7 +29,7 @@ class MonthlySpend extends Component {
 
   render() {
     let transactions = this.props.transactions
-    console.log('monthly', transactions)
+
     if (transactions.length) {
       transactions[0].transactions.map(index => {
         if (!data.labels.includes(index.category[0])) {
@@ -42,7 +43,19 @@ class MonthlySpend extends Component {
         }
       })
     }
-    return <Doughnut data={data} />
+
+    return (
+      <div>
+        {transactions.length ? (
+          <div>
+            <Doughnut data={data} />
+            <Categories categories={data} />
+          </div>
+        ) : (
+          <h1>Loading...</h1>
+        )}
+      </div>
+    )
   }
 }
 
