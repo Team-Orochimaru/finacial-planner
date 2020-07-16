@@ -38,14 +38,14 @@ const Budget = props => {
 
   const button = (
     <button type="submit" onClick={() => setToggle(true)}>
-      edit annual income
+      Edit Annual Savings Goal
     </button>
   )
 
   const savingsForm = (
     <div>
       <form onSubmit={handleSubmit}>
-        <label>Edit Annual Income</label>
+        <label>Edit Annual Savings Goal</label>
         <input
           name="amount"
           type="text"
@@ -63,9 +63,9 @@ const Budget = props => {
     <div>
       {transactions.length && (
         <div>
-          <h3>Annual savings goal: ${amount}</h3>
+          <h3>Annual Savings Goal: ${amount}</h3>
           {buttonOrForm}
-          <h5>Monthly savings: ${amount / 12}</h5>
+          <h5>Monthly savings: ${(amount / 12).toFixed(2)}</h5>
           <h5>Expected monthly income: $4,500</h5>
           <h4>Expected monthly budget: $3,500</h4>
           {/* EMB = EMI - MS */}
