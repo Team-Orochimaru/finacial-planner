@@ -6,9 +6,10 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import AccountOverview from './components/account-overview'
 import PlaidLogin from './components/link'
-// import Charts from './components/Charts'
 import MonthlySpend from './components/monthlySpend'
 import YearlySpend from './components/yearlySpend'
+import Budget from './components/Budget'
+
 class Routes extends Component {
   constructor() {
     super()
@@ -35,6 +36,7 @@ class Routes extends Component {
             <Switch>
               <Route path="/overview" component={AccountOverview} />
               <Route exact path="/home" component={UserHome} />
+              <Route path="/budget" component={Budget} />
               <Route path="/yearly" component={YearlySpend} />
               <Route path="/monthly" component={MonthlySpend} />
             </Switch>

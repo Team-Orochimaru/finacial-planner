@@ -44,6 +44,9 @@ class Navbar extends Component {
                       <a href="/overview">Account Overview</a>
                     </li>
                     <li>
+                      <a href="/budget">Budget</a>
+                    </li>
+                    <li>
                       <a href="/monthly">Monthly Transaction</a>
                     </li>
                     <li>
@@ -63,6 +66,9 @@ class Navbar extends Component {
                 </li>
                 <li>
                   <a href="/overview">Account Overview</a>
+                </li>
+                <li>
+                  <a href="/budget">Budget</a>
                 </li>
                 <li>
                   <a href="/monthly">Monthly Spending</a>

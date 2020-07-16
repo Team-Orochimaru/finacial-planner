@@ -49,7 +49,7 @@ class MonthlySpend extends Component {
         {transactions.length ? (
           <div>
             <Doughnut data={data} />
-            <Categories categories={data} />
+            <Categories categories={data} transactions={transactions} />
           </div>
         ) : (
           <h1>Loading...</h1>
