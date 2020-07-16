@@ -10,7 +10,7 @@ const Transactions = props => {
         return (
           <div key={counter}>
             <p>
-              {transaction.merchantName}: ${transaction.amsount.toFixed(2)}
+              {transaction.merchantName}: ${transaction.amount.toFixed(2)}
             </p>
           </div>
         )
