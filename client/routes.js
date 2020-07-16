@@ -17,11 +17,9 @@ class Routes extends Component {
   }
   componentDidMount() {
     this.props.loadInitialData()
-    // await this.props.plaidAccessToken
   }
   async loadPlaidToken() {
     await this.props.plaidAccessToken
-    // console.log('plaidAccessToken: ', this.props.plaidAccessToken)
   }
 
   render() {

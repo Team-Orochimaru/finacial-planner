@@ -13,7 +13,6 @@ class Navbar extends Component {
 
   render() {
     const {handleClick, isLoggedIn, plaidAccessToken} = this.props
-    console.log('mounted 2')
     return (
       <div>
         {isLoggedIn &&
