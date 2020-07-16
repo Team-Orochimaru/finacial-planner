@@ -6,7 +6,9 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import AccountOverview from './components/account-overview'
 import PlaidLogin from './components/link'
-import Charts from './components/Charts'
+// import Charts from './components/Charts'
+import MonthlySpend from './components/monthlySpend'
+import YearlySpend from './components/yearlySpend'
 class Routes extends Component {
   constructor() {
     super()
@@ -24,10 +26,6 @@ class Routes extends Component {
 
   render() {
     const {isLoggedIn, plaidAccessToken} = this.props
-    console.log(
-      'plaidAccessToken from routes.component: ',
-      this.props.plaidAccessToken
-    )
     this.loadPlaidToken()
     return (
       <Switch>
@@ -39,7 +37,8 @@ class Routes extends Component {
             <Switch>
               <Route path="/overview" component={AccountOverview} />
               <Route exact path="/home" component={UserHome} />
-              <Route path="/charts" component={Charts} />
+              <Route path="/yearly" component={YearlySpend} />
+              <Route path="/monthly" component={MonthlySpend} />
             </Switch>
           )}
         {isLoggedIn &&

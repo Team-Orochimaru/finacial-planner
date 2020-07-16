@@ -3,31 +3,24 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-// import Menu from './Menu'
-// import M from '../../public/materialize-v1.0.0/materialize/js/materialize.min.js'
+import 'materialize-css/dist/css/materialize.min.css'
+import M from 'materialize-css/dist/js/materialize.min.js'
 class Navbar extends Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     access: false,
-  //   }
-  //   // this.handleOnSuccess = this.handleOnSuccess.bind(this)
-  // }
-  componentDidMount() {
-    // let sidenav = document.querySelector('#slide-out')
-    // M.Sidenav.init(sidenav, {})
+  componentDidUpdate() {
+    let sidenav = document.getElementById('slide-out')
+    M.Sidenav.init(sidenav, {})
   }
 
   render() {
     const {handleClick, isLoggedIn, plaidAccessToken} = this.props
-    console.log('navbarRender: ', this.props)
+    console.log('mounted 2')
     return (
       <div>
         {isLoggedIn &&
           plaidAccessToken && (
             <div>
               <nav className="orange" role="navigation">
-                <div className="nav-wrapper container">
+                <div className="container">
                   <a
                     href="/overview"
                     id="logo-container"
@@ -35,35 +28,55 @@ class Navbar extends Component {
                   >
                     eBudget
                   </a>
-                  <ul className="right hide-on-med-and-down">
-                    <li>
-                      <a href="/overview">Account Overview</a>
-                    </li>
-                    <li>
-                      <a href="/charts">Charts</a>
-                    </li>
-                  </ul>
-                  <ul id="nav-mobile" className="sidenav">
-                    <li>
-                      <a href="/overview">Account Overview</a>
-                    </li>
-                    <li>
-                      <a href="/charts">Charts</a>
-                    </li>
-                  </ul>
                   <a
                     href="#"
-                    data-target="nav-mobile"
-                    className="sidenav-trigger"
+                    data-target="slide-out"
+                    className="sidenav-trigger show-on-large"
                   >
-                    <i className="material-icons">menu</i>
+                    <i className="material-icons" id="ham-menu">
+                      menu
+                    </i>
                   </a>
+                  <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <li>
+                      <a href="/home">Home</a>
+                    </li>
+                    <li>
+                      <a href="/overview">Account Overview</a>
+                    </li>
+                    <li>
+                      <a href="/monthly">Monthly Transaction</a>
+                    </li>
+                    <li>
+                      <a href="/yearly">Yearly Transaction</a>
+                    </li>
+                    <li>
+                      <a href="#" onClick={handleClick}>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </nav>
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+              <ul id="slide-out" className="sidenav">
+                <li>
+                  <a href="/home">Home</a>
+                </li>
+                <li>
+                  <a href="/overview">Account Overview</a>
+                </li>
+                <li>
+                  <a href="/monthly">Monthly Spending</a>
+                </li>
+                <li>
+                  <a href="/yearly">Yearly Spending</a>
+                </li>
+                <li>
+                  <a href="#" onClick={handleClick}>
+                    Logout
+                  </a>
+                </li>
+              </ul>
             </div>
           )}
         {isLoggedIn &&
@@ -80,10 +93,6 @@ class Navbar extends Component {
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-              {/* <PlaidLogin
-              handleOnSuccess={this.handleOnSuccess}
-              access={this.state.access}
-            /> */}
             </div>
           )}
         {!isLoggedIn && (
