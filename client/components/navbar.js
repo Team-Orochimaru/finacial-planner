@@ -42,6 +42,9 @@ class Navbar extends Component {
                     <li>
                       <a href="/charts">Charts</a>
                     </li>
+                    <li>
+                      <a href="/budget">Budget</a>
+                    </li>
                   </ul>
                   <ul id="nav-mobile" className="sidenav">
                     <li>
