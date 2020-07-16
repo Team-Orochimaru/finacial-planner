@@ -57,8 +57,6 @@ To use OAuth with Google, refactor the customized information with your own Goog
 * Ian Gelfand
 * Vasyl Semak
 
-========================================================
-
 ## MVP
 
 * Users can link a bank account and pull in overall balance information and individual transactions
