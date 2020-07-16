@@ -95,8 +95,21 @@ const yearlyTransaction = async (req, res) => {
   )
 }
 
+const income = async (req, res, next) => {
+  ACCESS_TOKEN = await req.user.dataValues.plaidAccessToken
+  client.getIncome(ACCESS_TOKEN, (_err, result) => {
+    try {
+      let userIncome = result.income
+      res.json({income: userIncome})
+    } catch (error) {
+      next(error)
+    }
+  })
+}
+
 module.exports = {
   receivePublicToken,
   getTransactions,
-  yearlyTransaction
+  yearlyTransaction,
+  income
 }
