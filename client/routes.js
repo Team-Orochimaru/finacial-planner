@@ -7,6 +7,8 @@ import {me} from './store'
 import AccountOverview from './components/account-overview'
 import PlaidLogin from './components/link'
 import Charts from './components/Charts'
+import Budget from './components/Budget'
+
 class Routes extends Component {
   constructor() {
     super()
@@ -15,19 +17,14 @@ class Routes extends Component {
   }
   componentDidMount() {
     this.props.loadInitialData()
-    // await this.props.plaidAccessToken
   }
   async loadPlaidToken() {
     await this.props.plaidAccessToken
-    // console.log('plaidAccessToken: ', this.props.plaidAccessToken)
   }
 
   render() {
     const {isLoggedIn, plaidAccessToken} = this.props
-    console.log(
-      'plaidAccessToken from routes.component: ',
-      this.props.plaidAccessToken
-    )
+
     this.loadPlaidToken()
     return (
       <Switch>
@@ -37,9 +34,10 @@ class Routes extends Component {
         {isLoggedIn &&
           plaidAccessToken && (
             <Switch>
-              <Route path="/overview" component={AccountOverview} />
               <Route exact path="/home" component={UserHome} />
+              <Route path="/overview" component={AccountOverview} />
               <Route path="/charts" component={Charts} />
+              <Route path="/budget" component={Budget} />
             </Switch>
           )}
         {isLoggedIn &&
