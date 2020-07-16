@@ -33,7 +33,8 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 const {
   receivePublicToken,
   getTransactions,
-  yearlyTransaction
+  yearlyTransaction,
+  income
 } = require('./controllers/controller')
 
 // passport registration
@@ -74,6 +75,7 @@ const createApp = () => {
   // Get Transactions
   app.get('/transactions', getTransactions)
   app.get('/yearlyTransaction', yearlyTransaction)
+  app.get('/income', income)
 
   // auth and api routes
   app.use('/auth', require('./auth'))
