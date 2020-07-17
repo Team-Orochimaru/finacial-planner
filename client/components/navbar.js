@@ -38,9 +38,9 @@ class Navbar extends Component {
                     </i>
                   </a>
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
-                    <li>
+                    {/* <li>
                       <a href="/home">Home</a>
-                    </li>
+                    </li> */}
                     <li>
                       <a href="/overview">Account Overview</a>
                     </li>

@@ -44,9 +44,13 @@ class PlaidLogin extends Component {
               publicKey="ae9b699cddb974bc89c10074b92e85"
               onExit={this.handleOnExit}
               onSuccess={this.handleOnSuccess}
-              className="plaidLink"
+              className="plaidLink "
             >
-              <button type="submit" className="btn" id="plaidButton">
+              <button
+                type="submit"
+                className="btn valign-wrapper"
+                id="plaidButton"
+              >
                 Click here to connect your bank!
               </button>
             </PlaidLink>

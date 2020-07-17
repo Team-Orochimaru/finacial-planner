@@ -9,7 +9,7 @@ import PlaidLogin from './components/link'
 import MonthlySpend from './components/monthlySpend'
 import YearlySpend from './components/yearlySpend'
 import Budget from './components/Budget'
-import {Home} from './components/home'
+import Home from './components/home'
 class Routes extends Component {
   constructor() {
     super()
