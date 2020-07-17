@@ -24,7 +24,7 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 
 `npm run seed: populate database with dummy users`
 
-Visit `http://localhost:8080` to start shopping on a local server.
+Visit [localhost:8080](http://localhost:8080) to start shopping on a local server.
 
 If you want to run the server and/or webpack separately, you can also run `npm run start-server` and `npm run build-client`.
 
