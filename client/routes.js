@@ -9,7 +9,7 @@ import PlaidLogin from './components/link'
 import MonthlySpend from './components/monthlySpend'
 import YearlySpend from './components/yearlySpend'
 import Budget from './components/Budget'
-
+import {Home} from './components/home'
 class Routes extends Component {
   constructor() {
     super()
@@ -28,6 +28,7 @@ class Routes extends Component {
     this.loadPlaidToken()
     return (
       <Switch>
+        <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
 
