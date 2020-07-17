@@ -28,9 +28,74 @@ main h3 {
 }
 #plaidButton {
   font-size: 18px;
+  background-color: #4fc3f7;
 }
 #plaid-container {
   margin: 20px;
+}
+.accountOverViewContainer {
+  margin: auto;
+  max-width: 800px;
+  padding: 20px;
+}
+.accountOverViewContainer h2 {
+  font-weight: bold;
+}
+.accountTransactionContainer {
+  background-color: #c9f5ff;
+  margin-bottom: 20px;
+  padding: 2px 20px 20px 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+}
+.accountTransactionContainer p {
+  font-size: 20px;
+}
+.accountTransactionContainer h4 {
+  font-weight: 500;
+}
+.budgetContainer {
+  padding: 20px;
+}
+.savingsForm {
+  font-size: 20px;
+}
+.label {
+  font-weight: 600;
+}
+.labelDiv {
+  background-color: #c9f5ff;
+  margin-top: 20px;
+  padding: 5px 20px 20px 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+}
+.monthlyContainerDiv {
+  margin: auto;
+  max-width: 800px;
+  padding: 20px;
+}
+.monthlyConatiner {
+  background-color: #c9f5ff;
+  margin-bottom: 20px;
+  padding: 2px 20px 20px 20px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+}
+.monthlyConatiner h2 {
+  font-weight: bold;
+  padding: 0px;
+  text-align: left;
+}
+.monthlyConatiner p {
+  font-size: 20px;
+}
+.monthlyLabel {
+  font-weight: 600;
+}
+.singleTransaction {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (min-width: 990px) {

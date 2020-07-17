@@ -28,15 +28,15 @@ class AccountOverview extends React.Component {
           <h3>Loading...</h3>
         ) : (
           <div>
-            <h1>Account Overview</h1>
-            <h3>Total transaction amount: {transAmount}</h3>
+            <h2>Account Overview</h2>
+            <h3>Total Transaction Amount: ${transAmount.toFixed(2)}</h3>
 
             {transactions[0].accounts.map((account, index) => {
               let count = index
               if (BankAccount(transactions[0])[account.account_id]) {
                 return (
                   <div key={count} className="accountTransactionContainer">
-                    <h3>{account.name}</h3>
+                    <h4>{account.name}:</h4>
 
                     <Transactions
                       transactions={

@@ -2,7 +2,6 @@ import React from 'react'
 
 const Transactions = props => {
   const {transactions} = props
-  // console.log('transaction file', date)
   return (
     <div>
       {transactions.map((transaction, idx) => {
@@ -12,6 +11,7 @@ const Transactions = props => {
             <p>
               {transaction.merchantName}: ${transaction.amount.toFixed(2)}
             </p>
+            <p>{transaction.date}</p>
           </div>
         )
       })}

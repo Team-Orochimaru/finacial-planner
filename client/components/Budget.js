@@ -37,13 +37,17 @@ const Budget = props => {
   }
 
   const button = (
-    <button type="submit" onClick={() => setToggle(true)}>
+    <button
+      type="submit"
+      className="btn orange waves-effect"
+      onClick={() => setToggle(true)}
+    >
       Edit Annual Savings Goal
     </button>
   )
 
   const savingsForm = (
-    <div>
+    <div className="savingsForm">
       <form onSubmit={handleSubmit}>
         <label>Edit Annual Savings Goal</label>
         <input
@@ -52,7 +56,9 @@ const Budget = props => {
           value={amount}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn orange waves-effect">
+          Submit
+        </button>
       </form>
     </div>
   )
@@ -61,16 +67,29 @@ const Budget = props => {
 
   return (
     <div>
-      {transactions.length && (
-        <div>
-          <h3>Annual Savings Goal: ${amount}</h3>
-          {buttonOrForm}
-          <h5>Monthly savings: ${(amount / 12).toFixed(2)}</h5>
-          <h5>Expected monthly income: $4,500</h5>
-          <h4>Expected monthly budget: $3,500</h4>
-          {/* EMB = EMI - MS */}
-        </div>
-      )}
+      <main>
+        {transactions.length && (
+          <div className="budgetContainer">
+            <h3>
+              <span className="label">Annual Savings Goal:</span> ${amount}
+            </h3>
+            {buttonOrForm}
+            <div className="labelDiv">
+              <h5>
+                <span className="label">Monthly savings:</span> ${(
+                  amount / 12
+                ).toFixed(2)}
+              </h5>
+              <h5>
+                <span className="label">Expected monthly income:</span> $4,500
+              </h5>
+              <h5>
+                <span className="label">Expected monthly budget:</span> $3,500
+              </h5>
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   )
 }
