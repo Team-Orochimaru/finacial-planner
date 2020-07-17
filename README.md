@@ -32,7 +32,7 @@ If you want to run the server and/or webpack separately, you can also run `npm r
 
 ## Customize
 
-Create a file called secrets.js in the project's root directory. This file is listed in the .gitignore by default, and will only be required in your development environment. Its purpose is to attach the API-specific environment variables that you need as a developer. **Be sure to keep the information contained in your secrets.js file confidential (i.e. Don't push the file to GitHub).**
+Create a file called secrets.js in the project's root directory. This file is listed in the project's .gitignore file by default, and is only required in your environment for developmental purposes. The file attaches API-specific environment variables that you need to get started as a developer. **Be sure to keep the information contained in your secrets.js file confidential (i.e. Don't push it to GitHub).**
 
 Example secrets.js file:
 
