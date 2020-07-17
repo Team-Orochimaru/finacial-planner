@@ -38,9 +38,11 @@ If you want to run the server and/or webpack separately, you can also run `npm r
 * Be sure to keep the information contained in your secrets.js file confidential (i.e. Don't push the file to GitHub)
 * Example secrets.js file:
 
-```process.env.PLAID_CLIENT_ID = 'Your Plaid Client ID goes here';
+```
+process.env.PLAID_CLIENT_ID = 'Your Plaid Client ID goes here';
 process.env.PLAID_SECRET = 'Your Plaid Secret goes here';
-process.env.PLAID_PUBLIC_KEY = 'Your Plaid Public Key goes here';```
+process.env.PLAID_PUBLIC_KEY = 'Your Plaid Public Key goes here';
+```
 
 ## Authors
 
