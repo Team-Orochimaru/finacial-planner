@@ -5,7 +5,7 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 ## About
 
 **eBudget uses technologies including:**
-* Plaid API
+* [Plaid API](https://plaid.com/docs/)
 * Frontend – React.js, Redux
 * Backend – Express.js, Sequelize, Postgres
 * Style – Materialize CSS, CSS
