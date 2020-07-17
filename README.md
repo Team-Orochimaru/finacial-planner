@@ -32,11 +32,8 @@ If you want to run the server and/or webpack separately, you can also run `npm r
 
 ## Customize
 
-* Create a file called secrets.js in your project's root directory
-* This file is listed in .gitignore by default, and will only be required in your development environment
-* Its purpose is to attach the API-specific environment variables that you will use while developing
-* Be sure to keep the information contained in your secrets.js file confidential (i.e. Don't push the file to GitHub)
-* Example secrets.js file:
+Create a file called secrets.js in the project's root directory. This file is listed in the .gitignore by default, and will only be required in your development environment. Its purpose is to attach the API-specific environment variables that you need as a developer. **Be sure to keep the information contained in your secrets.js file confidential (i.e. Don't push the file to GitHub).**
+Example secrets.js file:
 
 ```
 process.env.PLAID_CLIENT_ID = 'Your Plaid Client ID goes here';
