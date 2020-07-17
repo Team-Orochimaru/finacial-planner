@@ -3,6 +3,7 @@ import {Bar} from 'react-chartjs-2'
 import {connect} from 'react-redux'
 import {yearly} from '../store/transactions'
 const moment = require('moment')
+
 const data = {
   labels: [
     moment()

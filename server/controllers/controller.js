@@ -20,33 +20,22 @@ var client = new plaid.Client(
   {version: '2019-05-29', clientApp: 'Plaid Quickstart'}
 )
 
-const receivePublicToken = async (publicToken, userId) => {
-  // First, receive the public token and set it to a variable
+const receivePublicToken = (publicToken, userId) => {
   try {
-    // Second, exchange the public token for an access token
     client.exchangePublicToken(publicToken, async function(
       _error,
       tokenResponse
     ) {
       ACCESS_TOKEN = tokenResponse.access_token
-      console.log('Private access token:', ACCESS_TOKEN)
       const currentUser = await User.findByPk(userId)
       await currentUser.update({plaidAccessToken: ACCESS_TOKEN})
-
-      console.log('ACESS TOEK after receive', currentUser.plaidAccessToken)
-      // ITEM_ID = tokenResponse.item_id
-      // res.json({
-      //   access_token: ACCESS_TOKEN,
-      //   item_id: ITEM_ID
-      // })
     })
   } catch (error) {
     console.log(error)
   }
 }
 
-const getTransactions = async (req, res) => {
-  // Pull transactions for the last 30 days
+const getTransactions = (req, res) => {
   ACCESS_TOKEN = req.user.plaidAccessToken
   let startDate = moment()
     .subtract(30, 'days')
@@ -63,17 +52,13 @@ const getTransactions = async (req, res) => {
       offset: 0
     },
     function(_error, transactionsResponse) {
-      console.log('from controller ->', ACCESS_TOKEN)
       res.json({transactions: transactionsResponse})
-      // TRANSACTIONS LOGGED BELOW!
-      // They will show up in the terminal that you are running nodemon in.
-      // console.log(transactionsResponse)
     }
   )
 }
 
-const yearlyTransaction = async (req, res) => {
-  ACCESS_TOKEN = await req.user.dataValues.plaidAccessToken
+const yearlyTransaction = (req, res) => {
+  ACCESS_TOKEN = req.user.dataValues.plaidAccessToken
 
   let startDate = moment()
     .subtract(365, 'days')

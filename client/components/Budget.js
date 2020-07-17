@@ -24,15 +24,11 @@ const Budget = props => {
   console.log('TRANS AMOUNT -->', amount, typeof amount)
 
   const handleChange = event => {
-    // setAmount({[event.target.name]: event.target.value})
-    // console.log('TArget -->', typeof Number(event.target.value))
     setAmount(Number(event.target.value))
   }
 
   const handleSubmit = event => {
-    // alert('Annual income has been changed: ' + value)
     event.preventDefault()
-    console.log('Before -->', event.target)
     setToggle(false)
   }
 
@@ -97,7 +93,6 @@ const Budget = props => {
 const mapState = state => {
   return {
     transactions: state.transactions
-    // plaidAccessToken: state.user.plaidAccessToken
   }
 }
 

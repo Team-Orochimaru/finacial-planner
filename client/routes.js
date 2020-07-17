@@ -9,7 +9,7 @@ import PlaidLogin from './components/link'
 import MonthlySpend from './components/monthlySpend'
 import YearlySpend from './components/yearlySpend'
 import Budget from './components/Budget'
-import Home from './components/home'
+
 class Routes extends Component {
   constructor() {
     super()
@@ -28,9 +28,8 @@ class Routes extends Component {
     this.loadPlaidToken()
     return (
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
 
         {isLoggedIn &&
           plaidAccessToken && (
@@ -48,21 +47,13 @@ class Routes extends Component {
               <Route component={PlaidLogin} />
             </Switch>
           )}
-
-        {/* Displays our Login component as a fallback */}
       </Switch>
     )
-    // }, 2000)
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     plaidAccessToken: state.user.plaidAccessToken
   }
@@ -76,13 +67,8 @@ const mapDispatch = dispatch => {
   }
 }
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Routes))
 
-/**
- * PROP TYPES
- */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired

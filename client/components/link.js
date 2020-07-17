@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable require-await */
+/* eslint-disable camelcase */
 import React, {Component} from 'react'
 import {PlaidLink} from 'react-plaid-link'
 import {connect} from 'react-redux'
@@ -27,10 +30,7 @@ class PlaidLogin extends Component {
     this.setState({plaidAccess: true})
   }
 
-  handleOnExit() {
-    // handle the case when your user exits Link
-    // For the sake of this tutorial, we're not going to be doing anything here.
-  }
+  handleOnExit() {}
 
   render() {
     return (
