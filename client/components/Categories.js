@@ -7,7 +7,6 @@ const Categories = props => {
 
   transactions[0].transactions.map(trans => {
     if (!trans.merchant_name) trans.merchant_name = 'Unknown merchant'
-    console.log(' names inside map -->', trans.merchant_name)
   })
 
   return (

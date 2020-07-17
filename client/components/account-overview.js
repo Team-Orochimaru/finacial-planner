@@ -4,9 +4,6 @@ import Transactions from './Transactions'
 import BankAccount from './currentAccount'
 import {fetchTransactions} from '../store/transactions'
 
-/**
- * COMPONENT
- */
 class AccountOverview extends React.Component {
   async componentDidMount() {
     await this.props.getTransactions()

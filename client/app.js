@@ -1,5 +1,4 @@
 import React from 'react'
-import PlaidLogin from './components/link'
 import Navbar from './components/navbar'
 import Routes from './routes'
 

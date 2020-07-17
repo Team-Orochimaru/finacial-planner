@@ -38,9 +38,6 @@ class Navbar extends Component {
                     </i>
                   </a>
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
-                    {/* <li>
-                      <a href="/home">Home</a>
-                    </li> */}
                     <li>
                       <a href="/overview">Account Overview</a>
                     </li>
@@ -146,9 +143,7 @@ class Navbar extends Component {
     )
   }
 }
-/**
- * CONTAINER
- */
+
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
@@ -163,9 +158,7 @@ const mapDispatch = dispatch => {
   }
 }
 export default connect(mapState, mapDispatch)(Navbar)
-/**
- * PROP TYPES
- */
+
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
