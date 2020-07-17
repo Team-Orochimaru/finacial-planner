@@ -36,7 +36,7 @@ class PlaidLogin extends Component {
     return (
       <div>
         {!this.state.plaidAccess ? (
-          <div>
+          <div id="plaid-container">
             <PlaidLink
               clientName="eBudget"
               env="sandbox"
@@ -46,13 +46,20 @@ class PlaidLogin extends Component {
               onSuccess={this.handleOnSuccess}
               className="plaidLink"
             >
-              Open Link and connect your bank!
+              <button type="submit" className="btn" id="plaidButton">
+                Click here to connect your bank!
+              </button>
             </PlaidLink>
           </div>
         ) : (
-          <div>
-            <button type="submit" onClick={this.getTransactions}>
-              Get your bank transactions
+          <div id="plaid-container">
+            <button
+              type="submit"
+              className="btn"
+              id="plaidButton"
+              onClick={this.getTransactions}
+            >
+              Click here to get transactions!
             </button>
           </div>
         )}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import Home from './home'
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css/dist/js/materialize.min.js'
 class Navbar extends Component {
@@ -88,16 +89,45 @@ class Navbar extends Component {
           !plaidAccessToken && (
             <div>
               <nav className="orange" role="navigation">
-                <div className="nav-wrapper container">
-                  <Link to="/" id="logo-container" className="brand-logo">
+                <div className="container">
+                  <a
+                    href="/overview"
+                    id="logo-container"
+                    className="brand-logo"
+                  >
                     eBudget
-                  </Link>
+                  </a>
+                  <a
+                    href="#"
+                    data-target="slide-out"
+                    className="sidenav-trigger show-on-large"
+                  >
+                    <i className="material-icons" id="ham-menu">
+                      menu
+                    </i>
+                  </a>
+                  <ul id="nav-mobile" className="right hide-on-med-and-down">
+                    <li>
+                      <a href="/home">Home</a>
+                    </li>
+                    <li>
+                      <a href="#" onClick={handleClick}>
+                        Logout
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </nav>
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+              <ul id="slide-out" className="sidenav">
+                <li>
+                  <a href="/home">Home</a>
+                </li>
+                <li>
+                  <a href="#" onClick={handleClick}>
+                    Logout
+                  </a>
+                </li>
+              </ul>
             </div>
           )}
         {!isLoggedIn && (
@@ -109,18 +139,7 @@ class Navbar extends Component {
                 </Link>
               </div>
             </nav>
-            <ul className="right hide-on-med-and-down">
-              <button type="submit" className="login">
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
-              </button>
-              <button type="submit" className="signup">
-                <li>
-                  <Link to="/signup">Sign Up</Link>
-                </li>
-              </button>
-            </ul>
+            <Home />
           </div>
         )}
       </div>
