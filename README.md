@@ -6,9 +6,9 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 
 **eBudget uses technologies including:**
 * [Plaid API](https://plaid.com/docs/)
-* Frontend – React.js, Redux
-* Backend – Express.js, Sequelize, Postgres
-* Style – Materialize CSS, CSS
+* Frontend – [React.js](https://reactjs.org/), [Redux.js](https://redux.js.org/)
+* Backend – [Express.js](https://expressjs.com/), [Sequelize ORM](https://sequelize.org/), [PostgreSQL](https://www.postgresql.org/)
+* Style – [Materialize CSS](https://materializecss.com/), [CSS](https://www.w3.org/Style/CSS/Overview.en.html)
 
 ## Installing
 
@@ -44,11 +44,7 @@ process.env.GOOGLE_CLIENT_SECRET = 'Your Google Client Secret here'
 
 process.env.GOOGLE_CALLBACK = '/auth/google/callback'
 
-# OAuth
-
-To use OAuth with Google, refactor the customized information with your own Google Client information. You may find them from Google API dashboard.
-
-# Authors
+## Authors
 
 * Rob Arcand
 * Iskak Mantyubetov
