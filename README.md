@@ -12,19 +12,21 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 
 ## Installing
 
-git clone https://github.com/Team-Orochimaru/financial-planner.git
+**Use the following commands on your local terminal to download the app and get started:**
 
-npm install
+`git clone https://github.com/Team-Orochimaru/financial-planner.git`
 
-createdb financial-planner: create postgres database
+`npm install`
 
-npm run start-dev: start developer environment with local server and webpack
+`createdb financial-planner: create postgres database`
 
-npm run seed: populate database with dummy users
+`npm run start-dev: start developer environment with local server and webpack`
 
-Visit http://localhost:8080 to start shopping on a local server.
+`npm run seed: populate database with dummy users`
 
-If you want to run the server and/or webpack separately, you can also npm run start-server and npm run build-client.
+Visit `http://localhost:8080` to start shopping on a local server.
+
+If you want to run the server and/or webpack separately, you can also run `npm run start-server` and `npm run build-client`.
 
 ## Customize
 
