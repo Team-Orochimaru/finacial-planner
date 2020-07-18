@@ -6,8 +6,9 @@ export const UserHome = props => {
   const {email} = props
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
+    <div className="user-home-container">
+      <h2>Welcome, {email}</h2>
+      <h3>Check out the navigation bar for all your budgeting needs.</h3>
     </div>
   )
 }

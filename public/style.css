@@ -28,6 +28,31 @@ main .eBudget-subheader {
   height: 50px;
 }
 
+.user-home-container {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  padding: 20px;
+}
+
+.user-home-container h2 {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.user-home-container h3 {
+  font-size: 18px;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Open Sans', 'Helvetica Neue', sans-serif;
+  color: #999;
+}
+
 #login-signup {
   margin: 0 20px 20px 20px;
   width: 90%;
