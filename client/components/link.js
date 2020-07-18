@@ -36,7 +36,7 @@ class PlaidLogin extends Component {
     return (
       <div>
         {!this.state.plaidAccess ? (
-          <div id="plaid-container">
+          <div className="" id="plaid-container">
             <PlaidLink
               clientName="eBudget"
               env="sandbox"
@@ -44,11 +44,11 @@ class PlaidLogin extends Component {
               publicKey="ae9b699cddb974bc89c10074b92e85"
               onExit={this.handleOnExit}
               onSuccess={this.handleOnSuccess}
-              className="plaidLink "
+              className="plaidLink"
             >
               <button
                 type="submit"
-                className="btn valign-wrapper"
+                className="btn-large light-blue lighten-2"
                 id="plaidButton"
               >
                 Click here to connect your bank!
@@ -59,7 +59,7 @@ class PlaidLogin extends Component {
           <div id="plaid-container">
             <button
               type="submit"
-              className="btn"
+              className="btn-large orange"
               id="plaidButton"
               onClick={this.getTransactions}
             >

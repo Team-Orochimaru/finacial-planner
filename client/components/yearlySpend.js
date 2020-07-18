@@ -46,13 +46,13 @@ const data = {
   datasets: [
     {
       data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      label: '',
+      label: 'USD',
       backgroundColor: [
         'rgba(255, 99, 132, 0.1)',
-        'rgba(0, 0, 255, 0.1)',
-        'rgba(255, 0, 255, 0.1)',
-        'rgba(124, 45, 121, 0.1)',
-        'rgba(255, 0, 0, 0.1)',
+        'rgba(54, 162, 235, 0.1)',
+        'rgba(255, 206, 86, 0.1)',
+        'rgba(83, 109, 254, 0.1)',
+        'rgba(195, 0, 255, 0.1)',
         'rgba(0, 128, 0, 0.1)',
         'rgba(128, 0, 0, 0.1)',
         'rgba(0, 0, 128, 0.1)',
@@ -63,10 +63,10 @@ const data = {
       ],
       borderColor: [
         'rgba(255, 99, 132)',
-        'rgba(0, 0, 255)',
-        'rgba(255, 0, 255)',
-        'rgba(124, 45, 121)',
-        'rgba(255, 0, 0)',
+        'rgba(54, 162, 235)',
+        'rgba(255, 206, 86)',
+        'rgba(83, 109, 254)',
+        'rgba(195, 0, 255)',
         'rgba(0, 128, 0)',
         'rgba(128, 0, 0)',
         'rgba(0, 0, 128)',
@@ -78,9 +78,9 @@ const data = {
       hoverBackgroundColor: [
         'rgba(255, 99, 132, 0.5)',
         'rgba(0, 0, 255, 0.5)',
-        'rgba(255, 0, 255, 0.5)',
-        'rgba(124, 45, 121, 0.5)',
-        'rgba(255, 0, 0, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(83, 109, 254, 0.5)',
+        'rgba(195, 0, 255, 0.5)',
         'rgba(0, 128, 0, 0.5)',
         'rgba(128, 0, 0, 0.5)',
         'rgba(0, 0, 128, 0.5)',
@@ -129,7 +129,12 @@ class YearlySpend extends Component {
         data.datasets[0].data[index] = total
       })
     }
-    return <Bar data={data} />
+    return (
+      <div className="yearlyContainer">
+        <h2>Annual Spending</h2>
+        <Bar data={data} />
+      </div>
+    )
   }
 }
 

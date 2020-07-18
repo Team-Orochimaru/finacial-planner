@@ -42,13 +42,13 @@ class Navbar extends Component {
                       <a href="/overview">Account Overview</a>
                     </li>
                     <li>
-                      <a href="/budget">Budget</a>
+                      <a href="/budget">Budget Calculator</a>
                     </li>
                     <li>
-                      <a href="/monthly">Monthly Transaction</a>
+                      <a href="/monthly">Monthly Spending</a>
                     </li>
                     <li>
-                      <a href="/yearly">Yearly Transaction</a>
+                      <a href="/yearly">Annual Spending</a>
                     </li>
                     <li>
                       <a href="#" onClick={handleClick}>
@@ -66,13 +66,13 @@ class Navbar extends Component {
                   <a href="/overview">Account Overview</a>
                 </li>
                 <li>
-                  <a href="/budget">Budget</a>
+                  <a href="/budget">Budget Calculator</a>
                 </li>
                 <li>
                   <a href="/monthly">Monthly Spending</a>
                 </li>
                 <li>
-                  <a href="/yearly">Yearly Spending</a>
+                  <a href="/yearly">Annual Spending</a>
                 </li>
                 <li>
                   <a href="#" onClick={handleClick}>
