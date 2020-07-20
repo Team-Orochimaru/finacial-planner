@@ -17,7 +17,14 @@ const data = {
         '#c300ff',
         '#00ccff'
       ],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+      hoverBackgroundColor: [
+        '#FF6384',
+        '#36A2EB',
+        '#FFCE56',
+        '#0022ff',
+        '#c300ff',
+        '#00ccff'
+      ]
     }
   ]
 }
@@ -45,14 +52,19 @@ class MonthlySpend extends Component {
     }
 
     return (
-      <div>
+      <div className="monthlyContainer">
         {transactions.length ? (
-          <div>
-            <Doughnut data={data} />
-            <Categories categories={data} transactions={transactions} />
+          <div className="monthlyContainerInternal">
+            <div className="doughnutChart">
+              <Doughnut data={data} />
+            </div>
+            <div className="doughnutChartTable">
+              <h2>Monthly Spending</h2>
+              <Categories categories={data} transactions={transactions} />
+            </div>
           </div>
         ) : (
-          <h1>Loading...</h1>
+          <h3>Loading...</h3>
         )}
       </div>
     )

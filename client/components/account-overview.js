@@ -26,21 +26,28 @@ class AccountOverview extends React.Component {
         ) : (
           <div>
             <h2>Account Overview</h2>
-            <h3>Total Transaction Amount: ${transAmount.toFixed(2)}</h3>
+            <h3>
+              <span className="accountOverViewBold">
+                Total Transaction Amount:
+              </span>{' '}
+              ${transAmount.toFixed(2)}
+            </h3>
 
             {transactions[0].accounts.map((account, index) => {
               let count = index
               if (BankAccount(transactions[0])[account.account_id]) {
                 return (
-                  <div key={count} className="accountTransactionContainer">
-                    <h4>{account.name}:</h4>
+                  <ul className="collection with-header">
+                    <li className="collection-header" id="collection-header">
+                      <h4>{account.name}</h4>
+                    </li>
 
                     <Transactions
                       transactions={
                         BankAccount(transactions[0])[account.account_id]
                       }
                     />
-                  </div>
+                  </ul>
                 )
               }
             })}

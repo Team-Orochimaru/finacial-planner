@@ -5,21 +5,22 @@ export default class Home extends React.Component {
     return (
       <div>
         <main>
-          <h2>Welcome to eBudget!</h2>
+          <h2 className="eBudget-header">Welcome to eBudget!</h2>
+          <h3 className="eBudget-subheader">
+            Log in or sign up to get started
+          </h3>
           <ul className="center-align" id="login-signup-container">
             <Link
               to="/login"
-              className="btn light-blue lighten-2"
+              className="btn-large light-blue lighten-2"
               id="login-signup"
             >
               Login
             </Link>
-            <br />
-            <Link to="/signup" className="btn orange" id="login-signup">
+            <Link to="/signup" className="btn-large orange" id="login-signup">
               Sign Up
             </Link>
           </ul>
-          <h3>Login or Signup to get started</h3>
         </main>
       </div>
     )

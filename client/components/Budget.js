@@ -21,7 +21,6 @@ const Budget = props => {
       transAmount += transaction.amount
     })
   }
-  console.log('TRANS AMOUNT -->', amount, typeof amount)
 
   const handleChange = event => {
     setAmount(Number(event.target.value))
@@ -35,7 +34,7 @@ const Budget = props => {
   const button = (
     <button
       type="submit"
-      className="btn orange waves-effect"
+      className="btn light-blue lighten-2"
       onClick={() => setToggle(true)}
     >
       Edit Annual Savings Goal
@@ -43,7 +42,7 @@ const Budget = props => {
   )
 
   const savingsForm = (
-    <div className="savingsForm">
+    <div className="collection-item">
       <form onSubmit={handleSubmit}>
         <label>Edit Annual Savings Goal</label>
         <input
@@ -52,7 +51,7 @@ const Budget = props => {
           value={amount}
           onChange={handleChange}
         />
-        <button type="submit" className="btn orange waves-effect">
+        <button type="submit" className="btn orange">
           Submit
         </button>
       </form>
@@ -62,30 +61,33 @@ const Budget = props => {
   const buttonOrForm = !toggle ? button : savingsForm
 
   return (
-    <div>
-      <main>
+    <div className="budgetContainer">
+      <h2>Budget Calculator</h2>
+      <ul className="collection">
         {transactions.length && (
-          <div className="budgetContainer">
-            <h3>
-              <span className="label">Annual Savings Goal:</span> ${amount}
-            </h3>
-            {buttonOrForm}
-            <div className="labelDiv">
-              <h5>
-                <span className="label">Monthly savings:</span> ${(
-                  amount / 12
-                ).toFixed(2)}
-              </h5>
-              <h5>
-                <span className="label">Expected monthly income:</span> $4,500
-              </h5>
-              <h5>
-                <span className="label">Expected monthly budget:</span> $3,500
-              </h5>
-            </div>
-          </div>
+          <table className="striped">
+            <tbody>
+              <tr>
+                <td>Annual Savings Goal</td>
+                <td>${amount}</td>
+              </tr>
+              <tr>
+                <td>Monthly Savings</td>
+                <td>${(amount / 12).toFixed(2)}</td>
+              </tr>
+              <tr>
+                <td>Expected Monthly Income</td>
+                <td>$4,500</td>
+              </tr>
+              <tr>
+                <td>Expected Monthly Budget</td>
+                <td>$3,500</td>
+              </tr>
+            </tbody>
+          </table>
         )}
-      </main>
+      </ul>
+      <div className="buttonOrFormContainer">{buttonOrForm}</div>
     </div>
   )
 }
