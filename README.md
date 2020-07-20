@@ -22,9 +22,9 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 
 `createdb financial-planner`: creates postgres database
 
-`npm run start-dev`: starts developer environment with local server and webpack
-
 `npm run seed`: populates your local database with dummy users
+
+`npm run start-dev`: starts developer environment with local server and webpack
 
 Visit [localhost:8080](http://localhost:8080) to view the app on your local server.
 
