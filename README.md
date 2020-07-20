@@ -8,7 +8,7 @@ Budgeting can be hard. Our app makes it easy to create a well-organized budget f
 * [Plaid API](https://plaid.com/docs/)
 * Frontend – [React.js](https://reactjs.org/), [Redux.js](https://redux.js.org/)
 * Backend – [Express.js](https://expressjs.com/), [Sequelize ORM](https://sequelize.org/), [PostgreSQL](https://www.postgresql.org/)
-* Style – [Materialize CSS](https://materializecss.com/), [CSS](https://www.w3.org/Style/CSS/Overview.en.html), [Charts.js] (https://www.chartjs.org/docs/latest/)
+* Style – [Materialize CSS](https://materializecss.com/), [CSS](https://www.w3.org/Style/CSS/Overview.en.html), [Charts.js](https://www.chartjs.org/docs/latest/)
 
 ## Installing
 
