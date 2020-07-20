@@ -1,7 +1,7 @@
 main {
   margin: auto;
   max-width: 800px;
-  padding: 20px;
+  padding: 60px 20px 20px 20px;
 }
 
 main .eBudget-header {
@@ -28,6 +28,11 @@ main .eBudget-subheader {
   height: 50px;
 }
 
+nav {
+  position: fixed;
+  z-index: 2;
+}
+
 .user-home-container {
   max-width: 600px;
   margin: auto;
@@ -35,8 +40,8 @@ main .eBudget-subheader {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 30vh;
-  padding: 20px;
+  height: 50vh;
+  padding: 60px 20px 20px 20px;
 }
 
 .user-home-container h2 {
@@ -78,7 +83,7 @@ main .eBudget-subheader {
 .accountOverViewContainer {
   margin: auto;
   max-width: 600px;
-  padding: 10px;
+  padding: 50px 10px 10px 10px;
 }
 
 .accountOverViewContainer h2 {
@@ -116,7 +121,7 @@ main .eBudget-subheader {
   max-width: 600px;
   margin: auto;
   padding: 10px;
-  padding-top: 40px;
+  padding-top: 50px;
 }
 
 .categoriesContainer h4 {
@@ -145,7 +150,7 @@ main .eBudget-subheader {
 .monthlyContainer {
   max-width: 600px;
   margin: auto;
-  padding: 10px;
+  padding: 70px 10px 10px 10px;
 }
 
 .monthlyContainerInternal {
@@ -162,7 +167,7 @@ main .eBudget-subheader {
 .yearlyContainer {
   margin: auto;
   max-width: 900px;
-  padding: 10px;
+  padding: 60px 10px 10px 10px;
 }
 
 .yearlyContainer h2 {
