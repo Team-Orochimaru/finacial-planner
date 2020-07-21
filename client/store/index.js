@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import income from './income'
 import transactions from './transactions'
+import yearly from './yearly'
 
 const reducer = combineReducers({
   user,
   income,
-  transactions
+  transactions,
+  yearly
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))

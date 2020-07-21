@@ -33,11 +33,13 @@ class AccountOverview extends React.Component {
               ${transAmount.toFixed(2)}
             </h3>
 
-            {transactions[0].accounts.map((account, index) => {
-              let count = index
+            {transactions[0].accounts.map(account => {
               if (BankAccount(transactions[0])[account.account_id]) {
                 return (
-                  <ul className="collection with-header">
+                  <ul
+                    key={account.account_id}
+                    className="collection with-header"
+                  >
                     <li className="collection-header" id="collection-header">
                       <h4>{account.name}</h4>
                     </li>
