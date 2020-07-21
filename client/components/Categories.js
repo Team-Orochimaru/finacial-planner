@@ -1,5 +1,5 @@
 import React from 'react'
-var moment = require('moment')
+const moment = require('moment')
 
 const Categories = props => {
   const labels = props.categories.labels

@@ -1,4 +1,5 @@
 import React from 'react'
+const moment = require('moment')
 
 const Transactions = props => {
   const {transactions} = props
@@ -19,7 +20,7 @@ const Transactions = props => {
               <tr key={counter}>
                 <td>{transaction.merchantName}</td>
                 <td>${transaction.amount.toFixed(2)}</td>
-                <td>{transaction.date}</td>
+                <td>{moment(transaction.date).format('M/DD/YYYY')}</td>
               </tr>
             )
           })}
