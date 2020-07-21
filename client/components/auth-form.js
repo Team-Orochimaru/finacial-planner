@@ -27,7 +27,6 @@ const AuthForm = props => {
     </div>
   )
 }
-
 const mapLogin = state => {
   return {
     name: 'login',
