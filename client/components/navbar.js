@@ -45,7 +45,7 @@ class Navbar extends Component {
                       <Link to="/overview">Account Overview</Link>
                     </li>
                     <li>
-                      <Link to="/budget">Budget</Link>
+                      <Link to="/budget">Budget Calculator</Link>
                     </li>
                     <li>
                       <Link to="/monthly">Monthly Spending</Link>
@@ -69,7 +69,7 @@ class Navbar extends Component {
                   <Link to="/overview">Account Overview</Link>
                 </li>
                 <li>
-                  <Link to="/budget">Budget</Link>
+                  <Link to="/budget">Budget Calculator</Link>
                 </li>
                 <li>
                   <Link to="/monthly">Monthly Spending</Link>
