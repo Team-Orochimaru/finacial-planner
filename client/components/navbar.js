@@ -48,10 +48,10 @@ class Navbar extends Component {
                       <Link to="/budget">Budget</Link>
                     </li>
                     <li>
-                      <Link to="/monthly">Monthly Transaction</Link>
+                      <Link to="/monthly">Monthly Spending</Link>
                     </li>
                     <li>
-                      <Link to="/yearly">Yearly Transaction</Link>
+                      <Link to="/yearly">Annual Spending</Link>
                     </li>
                     <li>
                       <Link to="#" onClick={handleClick}>
@@ -72,10 +72,10 @@ class Navbar extends Component {
                   <Link to="/budget">Budget</Link>
                 </li>
                 <li>
-                  <Link to="/monthly">Monthly Transaction</Link>
+                  <Link to="/monthly">Monthly Spending</Link>
                 </li>
                 <li>
-                  <Link to="/yearly">Yearly Transaction</Link>
+                  <Link to="/yearly">Annual Spending</Link>
                 </li>
                 <li>
                   <Link to="#" onClick={handleClick}>
