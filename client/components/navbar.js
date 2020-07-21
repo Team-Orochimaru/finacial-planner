@@ -39,45 +39,48 @@ class Navbar extends Component {
                   </a>
                   <ul id="nav-mobile" className="right hide-on-med-and-down">
                     <li>
-                      <a href="/overview">Account Overview</a>
+                      <Link to="/home">Home</Link>
                     </li>
                     <li>
-                      <a href="/budget">Budget Calculator</a>
+                      <Link to="/overview">Account Overview</Link>
                     </li>
                     <li>
-                      <a href="/monthly">Monthly Spending</a>
+                      <Link to="/budget">Budget</Link>
                     </li>
                     <li>
-                      <a href="/yearly">Annual Spending</a>
+                      <Link to="/monthly">Monthly Transaction</Link>
                     </li>
                     <li>
-                      <a href="#" onClick={handleClick}>
+                      <Link to="/yearly">Yearly Transaction</Link>
+                    </li>
+                    <li>
+                      <Link to="#" onClick={handleClick}>
                         Logout
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </div>
               </nav>
               <ul id="slide-out" className="sidenav">
                 <li>
-                  <a href="/home">Home</a>
+                  <Link to="/home">Home</Link>
                 </li>
                 <li>
-                  <a href="/overview">Account Overview</a>
+                  <Link to="/overview">Account Overview</Link>
                 </li>
                 <li>
-                  <a href="/budget">Budget Calculator</a>
+                  <Link to="/budget">Budget</Link>
                 </li>
                 <li>
-                  <a href="/monthly">Monthly Spending</a>
+                  <Link to="/monthly">Monthly Transaction</Link>
                 </li>
                 <li>
-                  <a href="/yearly">Annual Spending</a>
+                  <Link to="/yearly">Yearly Transaction</Link>
                 </li>
                 <li>
-                  <a href="#" onClick={handleClick}>
+                  <Link to="#" onClick={handleClick}>
                     Logout
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -4,37 +4,36 @@ import {connect} from 'react-redux'
 import {fetchTransactions} from '../store/transactions'
 import Categories from './Categories'
 
-const data = {
-  labels: [],
-  datasets: [
-    {
-      data: [],
-      backgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56',
-        '#0022ff',
-        '#c300ff',
-        '#00ccff'
-      ],
-      hoverBackgroundColor: [
-        '#FF6384',
-        '#36A2EB',
-        '#FFCE56',
-        '#0022ff',
-        '#c300ff',
-        '#00ccff'
-      ]
-    }
-  ]
-}
-
 class MonthlySpend extends Component {
   async componentDidMount() {
     await this.props.getTransactions()
   }
 
   render() {
+    const data = {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#0022ff',
+            '#c300ff',
+            '#00ccff'
+          ],
+          hoverBackgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#0022ff',
+            '#c300ff',
+            '#00ccff'
+          ]
+        }
+      ]
+    }
     let transactions = this.props.transactions
 
     if (transactions.length) {
