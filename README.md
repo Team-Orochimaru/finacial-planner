@@ -48,3 +48,7 @@ process.env.PLAID_PUBLIC_KEY = 'Your Plaid Public Key goes here';
 * Ian Gelfand
 * Iskak Mantyubetov
 * Vasyl Semak
+
+## Presentation Video
+
+[Watch our video presentation of the project here](https://youtu.be/nbWok8GLaos)
